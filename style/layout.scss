@@ -1,0 +1,27 @@
+/* Layout */
+
+$header-height: 3rem;
+$footer-height: 3rem;
+
+html
+{
+  position: relative;
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
+body
+{
+  height: 100%;
+  background: primary(1);
+  font-family: "Rubik", Arial, sans-serif;
+  color: $black;
+}
+
+main, noscript
+{
+  display: block;
+  width: 50em;
+  max-width: 96%;
+  margin: auto;
+}

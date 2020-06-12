@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@cosmic-plus/loopcall": "^1.4.1"
+  }
+}

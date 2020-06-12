@@ -1,0 +1,37 @@
+/* Application Footer */
+
+.Application > footer
+{
+  @include elevation(2);
+
+  height: $footer-height;
+
+  background: $white;
+  padding: 0 2%;
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-align: center;
+
+  .Icon {
+    display: inline-block;
+    margin: 0.5rem 1vw;
+    white-space: nowrap;
+
+    svg {
+      height: 2rem;
+      max-width: 9vw;
+
+      fill: grey(4);
+      transition: fill 0.2s ease;
+    }
+
+    &[href="https://cosmic.plus"] svg {
+      fill: primary(7);
+    }
+
+    &:hover svg {
+      fill: primary(9);
+    }
+  }
+}

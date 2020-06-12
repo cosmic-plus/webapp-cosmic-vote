@@ -1,0 +1,70 @@
+/* VoteResult */
+
+@import "./gauge";
+
+.PollResults {
+  counter-reset: results;
+  padding: 0;
+
+  footer {
+    margin: -0.6em 1em;
+    text-align: right;
+    font-style: italic;
+  }
+}
+
+
+
+.PollResults li {
+  &:before {
+    counter-increment: results;
+    content: counters(results, ".") ".";
+    margin-right: 0.6em;
+  }
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.3em 5%;
+  transition: background ease 0.2s;
+
+  .id {
+    width: 20%;
+  }
+
+  .grade {
+    width: 30%;
+  }
+
+  .Gauge {
+    width: 50%;
+    border: solid thin transparent;
+    color: transparent;
+    font-size: 0.7em;
+
+    transition: border-color ease 0.2s, color ease 0.2s;
+
+    &:before {
+      position: absolute;
+      left: 49.5%;
+      height: 100%;
+      content: "";
+      border-left: dashed medium grey(7);
+      transition: border ease 0.2s;
+    }
+  }
+
+  &:hover {
+    background: primary(2);
+
+    .Gauge {
+      color: grey(7);
+      border-color: grey(7);
+
+      &:before {
+        border-left: dotted thin grey(7);
+      }
+    }
+  }
+}

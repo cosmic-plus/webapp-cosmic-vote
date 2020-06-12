@@ -1,0 +1,172 @@
+// Configuration //
+
+// Base
+$bg-inset: grey(1);
+$bg-outset: grey(2);
+$border: grey(4);
+
+// Hover
+$bg-hover: primary(3);
+$hover: primary(4);
+
+// States
+$readonly: grey(6);
+$disabled: grey(5);
+
+// Styles //
+
+form {
+  clear: both;
+  position: relative;
+  max-width: 34em;
+  margin: 1em auto;
+  text-align: center;
+}
+
+fieldset,
+form > label
+{
+  display: inline-block;
+  width: 100%;
+  border: none;
+  margin: auto;
+
+  & > span:first-child,
+  & > legend:first-child
+  {
+    display: inline-block;
+    float: left;
+    margin: 0.35em 0;
+    min-width: 20%;
+
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+// Cross-browser select //
+$select-arrow: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" fill="%23292929"><polygon points="0,0 60,0 30,50"/></svg>';
+
+select {
+  appearance: none;
+  background: url($select-arrow) right/1em no-repeat;
+}
+
+textarea,
+select,
+input,
+button,
+[type="checkbox"] + label,
+[type="radio"] + label {
+  display: inline-block;
+  width: 76%;
+  height: 2em;
+  line-height: 2em;
+  margin: 0.35em 1em;
+
+  border-radius: 0.1em;
+
+  padding: 0 0.4em;
+  overflow: hidden;
+
+  transition: all 0.2s ease;
+}
+
+textarea {
+  height: unset;
+  line-height: 1.4em;
+  padding: 0.4em;
+  resize: none;
+}
+
+// Input elements //
+
+textarea,
+select,
+input,
+button {
+  border: solid thin $border;
+  background-color: $bg-inset;
+
+  &[readonly] {
+    color: $readonly;
+  }
+
+  &:hover:enabled,
+  &:focus:enabled {
+    outline: 0;
+    box-shadow: 0em 0em 0.1em primary(6);
+    background-color: primary(2);
+    border: solid 0.05em $hover;
+  }
+}
+
+// Outset elements //
+
+button,
+input[type="button"],
+input[type="submit"] {
+  background: $bg-outset;
+
+  &:hover:enabled,
+  &:focus:enabled,
+  &.enabled {
+    cursor: pointer;
+    background: $bg-hover;
+  }
+}
+
+// Checkable elements //
+
+[type="checkbox"],
+[type="radio"] {
+  display: none;
+
+  // Label styling //
+  & + label::before { content: "✘ "; }
+  &:checked + label::before { content: "✔ "; }
+
+  & + label {
+    width: unset;
+    padding: 0 1em;
+    line-height: 2em;
+    border: none;
+    background: $white;
+  }
+
+  &:enabled + label:hover {
+    cursor: pointer;
+    background: $fg-info;
+    font-style: normal;
+    color: $black;
+  }
+
+  &:disabled + label,
+  &:not(:checked) + label {
+    font-style: italic;
+    color: $disabled;
+  }
+
+  &:checked:enabled + label {
+    background: $bg-info;
+  }
+
+  &:checked:disabled + label {
+    border: solid thin $disabled;
+    color: $black;
+  }
+}
+
+/* Sizing */
+
+form .half,
+form .half + label {
+  width: 38%;
+  min-width: 8em;
+}
+
+form .third,
+form .third + label {
+  width: 25%;
+  min-width: 6em;
+}

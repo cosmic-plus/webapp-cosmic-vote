@@ -1,0 +1,23 @@
+/* Spinner */
+
+.Spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.4em;
+  transform: scale(0);
+
+  border-radius: 100%;
+  background-color: primary(9);
+
+  vertical-align: middle;
+
+  animation: animate 1.0s infinite;
+}
+
+@keyframes animate {
+  100% {
+    transform: scale(1.0);
+    opacity: 0.4;
+  }
+}

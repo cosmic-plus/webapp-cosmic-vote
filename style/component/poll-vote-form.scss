@@ -1,0 +1,55 @@
+/* Poll Vote Form */
+
+.PollVoteForm {
+  padding: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6em 3%;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: primary(2);
+
+      .Gauge {
+        border: solid thin grey(7);
+      }
+    }
+  }
+
+  .id {
+    width: 22.5%;
+  }
+
+  .Gauge {
+    border: solid thin transparent;
+    width: 77.5%;
+    transition: border 0.2s ease;
+  }
+
+  .Gauge span {
+    border: solid medium transparent;
+    text-align: center;
+    filter: grayscale(0.2) opacity(0.8);
+    padding: 0.4em 0;
+    font-size: 0.9em;
+    overflow: hidden;
+    user-select: none;
+    transition: filter 0.2s ease,  border 0.2s ease;
+
+    &:hover:not(.selected) {
+      cursor: pointer;
+    }
+
+    &:hover,
+    &.selected {
+      width: 25%!important;
+      min-width: 6em;
+      border: solid medium primary(8);
+      filter: none;
+      // font-weight: bold;
+    }
+  }
+}

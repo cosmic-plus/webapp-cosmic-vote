@@ -1,0 +1,34 @@
+/* Application */
+
+$header-height: 3rem;
+$footer-height: 3rem;
+
+@import "./application.header";
+@import "./application.main";
+@import "./application.footer";
+
+.Application {
+  width: 100%;
+  padding: $header-height 0 $footer-height 0;
+
+  & > header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: $header-height;
+  }
+
+  & > main {
+    display: block;
+    width: 50em;
+    max-width: 96%;
+    margin: 2.6rem auto;
+  }
+
+  & > footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: $footer-height;
+  }
+}

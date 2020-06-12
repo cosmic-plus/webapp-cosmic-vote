@@ -1,0 +1,59 @@
+/* Generic tags definition */
+
+::selection {
+  background-color: primary(4);
+  color: $white;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
+body
+{
+  height: 100%;
+  background: primary(1);
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  color: $black;
+  line-height: 1.4em;
+}
+
+h2 {
+  position: relative;
+  margin: 1.75rem;
+
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+hr {
+  width: 50%;
+  margin: 1.4em auto;
+  border: 0;
+  border-top: thin solid grey(4);
+}
+
+p {
+  margin: 1.4em 0;
+  vertical-align: baseline;
+}
+
+a {
+  text-decoration: none;
+  color: primary(6);
+  transition: 0.2s color ease;
+
+  &:hover:not(.selected) {
+    cursor: pointer;
+    text-decoration: none;
+    color: primary(5);
+  }
+}

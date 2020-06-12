@@ -1,0 +1,14 @@
+// Fonts
+
+@font-face { //v13
+  font-family: "Source Sans Pro";
+  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+       url('./fonts/source-sans-pro.woff2') format('woff2'),
+       url('./fonts/source-sans-pro.woff') format('woff');
+}
+
+@font-face { //v10
+  font-family: "Roboto Slab";
+  src: url('fonts/roboto-slab.woff2') format('woff2'),
+       url('fonts/roboto-slab.woff') format('woff');
+}

@@ -1,0 +1,73 @@
+/* Application header */
+
+.Application > header {
+  @include elevation(2)
+
+  background: $white;
+  padding: 0 2%;
+  overflow: hidden;
+
+  line-height: $header-height;
+
+  h1 {
+    display: inline-block;
+    margin: 0.75rem 0;
+
+    line-height: 1.5rem;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: grey(6);
+    font-weight: bolder;
+
+    svg {
+      display: inline;
+      fill: grey(6);
+      transform: skewX(-12deg);
+      vertical-align: baseline;
+    }
+  }
+  
+  .Navigation {
+    display: inline-block;
+    float: right;
+  }
+
+  nav {
+    display: none;
+    @media screen and (min-width: 46em) { display: unset; }
+
+    font-size: 1.05em;
+
+    a {
+      display: inline-block;
+      line-height: 2.4rem;
+      margin-left: 1.6em;
+      color: grey(6);
+
+      &:hover, &.selected {
+        color: primary(6)
+      }
+
+      &.selected {
+        color: primary(6);
+        border-bottom: solid thick primary(6);
+      }
+    }
+  }
+
+  select {
+    @media screen and (min-width: 46em) { display:none; }
+
+    width: auto;
+    height: $header-height;
+    margin: 0;
+    font-size: 1.05em;
+
+    // border: none!important;
+    // box-shadow: none!important;
+    background: $white;
+
+    color: grey(6);
+    text-align-last: right;
+  }
+}
