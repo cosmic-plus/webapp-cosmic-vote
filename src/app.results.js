@@ -26,28 +26,30 @@ class ResultsTab extends View {
 
   <hr>
 
-  <p>Each candidate's votes are sorted from the worst to the best grade. We take
-  the candidate median grade, which we call the "majority grade", to be the
-  result of that candidate. If a candidate gets a "good" grade, we know that a
-  majority of voters considers that the candidate is <i>at most good</i>, while
-  another (overlapping) majority of voters thinks the candidate is <i>at least
-  good</i>.</p>
+  <aside>
+    <p>Each candidate's votes are sorted from the worst to the best grade. We
+    take the candidate median grade, which we call the "majority grade", to be
+    the result of that candidate. If a candidate gets a "good" grade, we know
+    that a majority of voters considers that the candidate is <i>at most
+    good</i>, while another (overlapping) majority of voters thinks the
+    candidate is <i>at least good</i>.</p>
 
-  <p>To break ties, the result is assorted with the completion of the grade. The
-  completion can be determined graphically, as it represents the point where the
-  median cut the grade. If the median cut the grade right at its start, the
-  completion is 0%. If it cuts it at the end, it is 100%. If it cuts it in the
-  middle, then it is 50%, and so on...</p>
+    <p>To break ties, the result is assorted with the completion of the grade.
+    The completion can be determined graphically, as it represents the point
+    where the median cut the grade. If the median cut the grade right at its
+    start, the completion is 0%. If it cuts it at the end, it is 100%. If it
+    cuts it in the middle, then it is 50%, and so on...</p>
 
-  <p>The complete result is noted <code>Grade<sub>+completion</sub></code> and
-  represents the level of support or rejection the community have for a given
-  candidate. The ranking is obtained by sorting candidate this way: first by
-  grade, then by completion.</p>
-  
-  <p>Worth noting, each candidate has a score that has a meaning of its own.
-  This is fundamentally different from traditional voting systems, in which
-  adding or removing a candidate will change other candidates scores (and, more
-  often than not, the whole ranking in disturbing ways).</p>
+    <p>The complete result is noted <code>Grade<sub>+completion</sub></code> and
+    represents the level of support or rejection the community have for a given
+    candidate. The ranking is obtained by sorting candidate this way: first by
+    grade, then by completion.</p>
+
+    <p>Worth noting, each candidate has a score that has a meaning of its own.
+    This is fundamentally different from traditional voting systems, in which
+    adding or removing a candidate will change other candidates scores (and,
+    more often than not, the whole ranking in disturbing ways).</p>
+  </aside>
 
 </section>
     `)
