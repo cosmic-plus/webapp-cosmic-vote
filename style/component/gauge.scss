@@ -7,23 +7,8 @@
   border-radius: 0.1rem; 
   overflow: hidden;
 
-  // color: transparent;
-  // transition: color ease 0.2s;
-
-  // &:hover { color: grey(7); }
-
   span {
     padding: 0.4em 0.6em;
     text-align: right;
-    // font-size: 0.7em;
   }
-  
-  // &:before {
-  //   position: absolute;
-  //   left: 49.5%;
-  //   height: 100%;
-  //   content: "";
-  //   border-left: dotted medium grey(7);
-  //   transition: border ease 0.2s;
-  // }
 }
