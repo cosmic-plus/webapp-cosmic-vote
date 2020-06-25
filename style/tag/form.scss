@@ -1,17 +1,4 @@
-// Configuration //
-
-// Base
-$bg-inset: grey(1);
-$bg-outset: grey(2);
-$border: grey(4);
-
-// Hover
-$bg-hover: primary(3);
-$hover: primary(4);
-
-// States
-$readonly: grey(6);
-$disabled: grey(5);
+/* Configuration */
 
 // Sizing //
 
@@ -79,6 +66,8 @@ button,
   overflow: hidden;
 
   transition: all 0.2s ease;
+
+  &[disabled] { color: $disabled; }
 }
 
 // Inset elements //
@@ -88,18 +77,16 @@ select,
 input,
 button {
   border: solid thin $border;
-  background-color: $bg-inset;
+  background-color: $inset;
 
-  &[readonly] {
-    color: $readonly;
-  }
+  &[readonly] { color: $readonly; }
 
   &:hover:enabled,
   &:focus:enabled {
     outline: 0;
-    box-shadow: 0em 0em 0.1em primary(6);
-    background-color: primary(2);
-    border: solid 0.05em $hover;
+    box-shadow: 0em 0em 0.1em $border-outline;
+    border: solid 0.05em $border-focus;
+    background-color: $inset-focus;
   }
 }
 
@@ -108,13 +95,13 @@ button {
 button,
 input[type="button"],
 input[type="submit"] {
-  background: $bg-outset;
+  background: $outset;
 
   &:hover:enabled,
   &:focus:enabled,
   &.enabled {
     cursor: pointer;
-    background: $bg-hover;
+    background: $outset-focus;
   }
 }
 
@@ -157,7 +144,7 @@ select {
 
   &:enabled + label:hover {
     cursor: pointer;
-    background: $fg-info;
+    background: $info;
     font-style: normal;
     color: $black;
   }
@@ -169,7 +156,7 @@ select {
   }
 
   &:checked:enabled + label {
-    background: $bg-info;
+    background: $info-bg;
   }
 
   &:checked:disabled + label {

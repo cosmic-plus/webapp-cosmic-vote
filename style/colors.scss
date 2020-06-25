@@ -1,11 +1,24 @@
 /* Colors Theme */
+
 $white: grey(0);
 $black: grey(9);
 
-$info: mediumseagreen;
-$error: tomato;
+// Forms //
+$border: grey(4);
+$border-focus: primary(4);
+$border-outline: primary(6);
 
-$bg-info: lightgreen;
-$fg-info: mediumseagreen;
-$bg-error: salmon;
-$fg-error: tomato;
+$inset: grey(1);
+$inset-focus: primary(2);
+$outset: grey(2);
+$outset-focus: primary(3);
+
+$readonly: grey(6);
+$disabled: grey(5);
+
+// Messages //
+
+$info: mediumseagreen;
+$info-bg: lightgreen;
+$error: tomato;
+$error-bg: salmon;
