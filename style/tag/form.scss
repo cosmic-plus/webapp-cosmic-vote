@@ -167,6 +167,12 @@ select {
   background: url($select-arrow) right/1em no-repeat;
 }
 
+// Button //
+
+button {
+  line-height: 1em;
+}
+
 // Checkables elements //
 
 [type="checkbox"],
