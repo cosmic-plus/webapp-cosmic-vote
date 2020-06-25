@@ -13,15 +13,15 @@ class VoteTab extends View {
   constructor (app) {
     super(`
 <section class="Widget">
-  <h2>%sectionTitle</h2>
-
+  <h2 hidden=%not:syncing>Reading Contract...</h2>
+  <h2 hidden=%has:syncing>%sectionTitle</h2>
   <hr>
   
-  <nav hidden=%has:synced>
-    <span class="Spinner">
-    <span>Syncing with consensus...</span>
+  <nav hidden=%not:syncing>
+    <span class="Spinner"></span>
+    <span>Please wait...</span>
   </nav>
-  <nav hidden=%not:synced>
+  <nav hidden=%has:syncing>
     <a onclick=%openTransaction hidden=%not:txHash>View contract</a>
     <a onclick=%openState hidden=%not:txHash>View state</a>
     <a onclick=%showResultsTab>See results</a>
@@ -65,7 +65,7 @@ class VoteTab extends View {
 
     /* Imports */
     this.app = app
-    this.$import(app, ["poll", "txHash", "synced", "title"])
+    this.$import(app, ["poll", "txHash", "syncing", "title"])
   }
 
   postVote () {

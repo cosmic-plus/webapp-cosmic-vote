@@ -101,7 +101,7 @@ const proto = CosmicVote.prototype
 
 proto.$on("poll", function (current, previous) {
   if (previous) this.$ignore(previous)
-  this.$import(current, ["txHash", "synced", "network", "title"])
+  this.$import(current, ["txHash", "syncing", "network", "title"])
 })
 
 proto.$on("network", function () {
