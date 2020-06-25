@@ -13,7 +13,22 @@ $hover: primary(4);
 $readonly: grey(6);
 $disabled: grey(5);
 
-// Styles //
+// Sizing //
+
+form .half,
+form .half + label {
+  width: 38%;
+  min-width: 8em;
+}
+
+form .third,
+form .third + label {
+  width: 25%;
+  min-width: 6em;
+}
+
+
+// Containers //
 
 form {
   clear: both;
@@ -44,13 +59,7 @@ form > label
   }
 }
 
-// Cross-browser select //
-$select-arrow: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" fill="%23292929"><polygon points="0,0 60,0 30,50"/></svg>';
-
-select {
-  appearance: none;
-  background: url($select-arrow) right/1em no-repeat;
-}
+// All elements //
 
 textarea,
 select,
@@ -72,14 +81,7 @@ button,
   transition: all 0.2s ease;
 }
 
-textarea {
-  height: unset;
-  line-height: 1.4em;
-  padding: 0.4em;
-  resize: none;
-}
-
-// Input elements //
+// Inset elements //
 
 textarea,
 select,
@@ -116,7 +118,26 @@ input[type="submit"] {
   }
 }
 
-// Checkable elements //
+// Textarea element //
+
+textarea {
+  height: unset;
+  line-height: 1.4em;
+  padding: 0.4em;
+  resize: none;
+}
+
+
+// Select element //
+
+$select-arrow: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" fill="%23292929"><polygon points="0,0 60,0 30,50"/></svg>';
+
+select {
+  appearance: none;
+  background: url($select-arrow) right/1em no-repeat;
+}
+
+// Checkables elements //
 
 [type="checkbox"],
 [type="radio"] {
@@ -155,18 +176,4 @@ input[type="submit"] {
     border: solid thin $disabled;
     color: $black;
   }
-}
-
-/* Sizing */
-
-form .half,
-form .half + label {
-  width: 38%;
-  min-width: 8em;
-}
-
-form .third,
-form .third + label {
-  width: 25%;
-  min-width: 6em;
 }
