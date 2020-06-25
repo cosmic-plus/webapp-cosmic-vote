@@ -116,7 +116,7 @@ button {
   &:focus:enabled {
     outline: 0;
     box-shadow: 0em 0em 0.1em $border-outline;
-    border: solid 0.05em $border-focus;
+    border: solid thin $border-focus;
     background-color: $inset-focus;
   }
 }
