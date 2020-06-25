@@ -6,7 +6,6 @@ const Application = require("./lib/application")
 const PollContract = require("./model/poll-contract")
 const NetworkContext = require("./model/network-context")
 const Parameters = require("./lib/parameters")
-const { ballot } = require("./model/poll")
 
 /* Constants */
 
@@ -73,8 +72,6 @@ class CosmicVote extends Application {
     this.$pick(params, ["network", "txHash"])
     if (this.txHash) {
       this.poll = PollContract.fromTxHash(this.txHash, this.network)
-    } else {
-      this.poll = ballot
     }
 
     // Development
