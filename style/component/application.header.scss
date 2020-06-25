@@ -61,11 +61,12 @@
     width: auto;
     height: $header-height;
     margin: 0;
+
+    border: none;
+    padding: 0 1.4em 0 0.6em;
+
     font-size: 1.05em;
-
-    background: $white;
-
     color: grey(6);
-    text-align-last: right;
+    text-align-last: center;
   }
 }
