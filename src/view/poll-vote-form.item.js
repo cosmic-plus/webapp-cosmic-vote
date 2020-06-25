@@ -18,7 +18,7 @@ class PollVoteFormItem extends View {
     `)
 
     this.gaugeMeter = gaugeMeter({
-      gauge: [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6],
+      gauge: Array(6).fill(1 / 6),
       names: [
         "Dismissed",
         "Insufficient",
