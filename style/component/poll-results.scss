@@ -10,6 +10,10 @@
     text-align: right;
     font-style: italic;
   }
+
+  @media screen and (max-width: 40em) {
+    ol { padding-left: 0; }
+  }
 }
 
 
@@ -24,16 +28,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  * { flex-grow: 1; }
+  @media screen and (max-width: 40em) { flex-wrap: wrap; }
 
   padding: 0.3em 5%;
   transition: background ease 0.2s;
 
   .id {
     width: 20%;
+    white-space: nowrap;
   }
 
   .grade {
     width: 30%;
+    white-space: nowrap;
   }
 
   .Gauge {
