@@ -6,6 +6,9 @@
   counter-reset: results;
 
   footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin: -0.6em 1em;
     text-align: right;
     font-style: italic;

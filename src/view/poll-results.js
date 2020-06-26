@@ -15,11 +15,15 @@ class PollResults extends View {
     %{toResultsMember:...results}
   </ol>
 
-  <footer>Number of votes: %{length}</footer>
+  <footer hidden=%has:syncing>
+    <span>Open since %{age}</span>
+    <span>Never expire</span>
+    <span>Number of votes: %{length}</span>
+  </footer>
 </div>
     `)
 
-    this.$import(poll, ["results", "votes"])
+    this.$import(poll, ["results", "votes", "record", "syncing"])
   }
 }
 
@@ -28,6 +32,19 @@ const proto = PollResults.prototype
 
 proto.$define("length", ["votes", "results"], function () {
   return this.votes.length
+})
+
+proto.$define("age", ["record"], function () {
+  const timeDiff = Date.now() - new Date(this.record.created_at)
+  const daysDiff = Math.trunc(timeDiff / (1000 * 3600 * 24))
+
+  if (daysDiff === 0) {
+    return "today"
+  } else if (daysDiff === 1) {
+    return "1 day"
+  } else {
+    return `${daysDiff} days`
+  }
 })
 
 /* Helpers */
