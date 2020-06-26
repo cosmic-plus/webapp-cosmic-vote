@@ -7,6 +7,8 @@ const PollContract = require("./model/poll-contract")
 const NetworkContext = require("./model/network-context")
 const Parameters = require("./lib/parameters")
 
+require("./feat.poll.auto-update")
+
 /* Constants */
 
 const app = {}

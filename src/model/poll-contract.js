@@ -34,8 +34,11 @@ class PollContract extends Poll {
       for (let key in tmp) poll[key] = tmp[key]
       poll.$pick(contract, ["type", "state", "destination"])
 
-      await poll.fetchVotes()
+      const cursor = await poll.fetchVotes()
+      poll.computeResults()
       poll.syncing = false
+
+      poll.streamVotes(cursor)
     })
 
     return poll
@@ -95,6 +98,7 @@ class PollContract extends Poll {
     }
 
     this.syncing = false
+    this.streamVotes(cursor)
     return this.txHash
   }
 
@@ -114,33 +118,55 @@ class PollContract extends Poll {
   }
 
   async fetchVotes () {
-    const server = NetworkContext.normalize(this.network).server
-    const callBuilder = server
-      .payments()
-      .forAccount(this.state)
-      .join("transactions")
+    const callBuilder = this.makeMessageCallBuilder()
 
+    let cursor
     await loopcall(callBuilder, {
       filter: paymentRecord => {
-        if (paymentRecord.to !== this.state) return
-
-        const txRecord = paymentRecord.transaction_attr
-        if (txRecord.memo !== "Vote") return
-
-        const txParams = TxParams.from("txRecord", txRecord)
-        const input = PassiveContract.fromTxParams(txParams)
-
-        // Carefully ignore wrong inputs.
-        const choice = input.params
-        if (choice.length !== this.members.length) return
-        if (choice.some(x => x < 0 || x > 5 || !isInteger(x))) return
-
-        const id = txRecord.source_account
-        this.pushVote({ id, choice })
+        cursor = paymentRecord.id
+        this.ingestPaymentRecord(paymentRecord)
       }
     })
 
-    this.computeResults()
+    return cursor
+  }
+
+  async streamVotes (cursor) {
+    const callBuilder = this.makeMessageCallBuilder({ cursor })
+    callBuilder.join("transactions").stream({
+      onmessage: this.ingestPaymentRecord.bind(this),
+      onerror: console.error
+    })
+  }
+
+  /* Low Level */
+
+  makeMessageCallBuilder (params = {}) {
+    const { cursor } = params
+    const server = NetworkContext.normalize(this.network).server
+    const callBuilder = server.payments().forAccount(this.state)
+    if (cursor) callBuilder.cursor(cursor)
+
+    callBuilder.join("transactions")
+    return callBuilder
+  }
+
+  async ingestPaymentRecord (paymentRecord) {
+    if (paymentRecord.to !== this.state) return
+
+    const txRecord = paymentRecord.transaction_attr
+    if (txRecord.memo !== "Vote") return
+
+    const txParams = TxParams.from("txRecord", txRecord)
+    const input = PassiveContract.fromTxParams(txParams)
+
+    // Carefully ignore wrong inputs.
+    const choice = input.params
+    if (choice.length !== this.members.length) return
+    if (choice.some(x => x < 0 || x > 5 || !isInteger(x))) return
+
+    const id = txRecord.source_account
+    this.pushVote({ id, choice })
   }
 }
 
