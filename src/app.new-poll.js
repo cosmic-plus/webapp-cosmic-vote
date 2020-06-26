@@ -57,14 +57,15 @@ class NewPollTab extends View {
       frame.listen("destroy", resolve)
     })
     await frameClosed
-
     this.syncing = true
 
-    await this.poll.waitValidation(60)
-    if (!this.poll.txHash) return
-
-    this.app.poll = this.poll
-    this.app.selectedTabId = "vote"
+    try {
+      await this.poll.waitValidation(60)
+      this.app.poll = this.poll
+      this.app.selectedTabId = "vote"
+    } catch (error) {
+      console.error(error)
+    }
 
     this.syncing = false
   }

@@ -98,7 +98,7 @@ class PollContract extends Poll {
     }
 
     this.syncing = false
-    this.streamVotes(cursor)
+    this.streamVotes()
     return this.txHash
   }
 
