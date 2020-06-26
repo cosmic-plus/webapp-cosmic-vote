@@ -32,7 +32,7 @@ class PollContract extends Poll {
     PassiveContract.fromTxHash(hash, network).then(async contract => {
       const tmp = new PollContract(contract.params)
       for (let key in tmp) poll[key] = tmp[key]
-      poll.$pick(contract, ["type", "state", "destination"])
+      poll.$pick(contract, ["type", "state", "destination", "record"])
 
       const cursor = await poll.fetchVotes()
       poll.computeResults()
@@ -53,10 +53,14 @@ class PollContract extends Poll {
   constructor (params) {
     super(params)
 
+    /* Defaults */
     this.type = `${name}@${version}`
     this.state = PassiveContract.makeState()
     this.destination = list
     this.network = "test"
+    this.record = {}
+
+    /* Imports */
     this.$import(params, ["network", "type", "state", "destination"])
   }
 

@@ -22,6 +22,7 @@ class OcMessage extends LiveObject {
     message.object = txParams.memo && txParams.memo.value
     message.destination = operationsToDestination(txParams.operations)
     message.content = operationsToContent(txParams.operations)
+    message.record = txParams.record
     clean(message)
     return message
   }

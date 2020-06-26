@@ -13,6 +13,7 @@ decode.transaction = function (tx, record, options = {}) {
   const transaction = new Transaction(record.envelope_xdr, network.passphrase)
   const txParams = tx.constructor.from("transaction", transaction)
   txParams.network = network.id
+  txParams.record = record
   return txParams
 }
 
