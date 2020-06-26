@@ -29,7 +29,7 @@ class PollContract extends Poll {
     })
     poll.syncing = true
 
-    PassiveContract.fromTxHash(hash, { network }).then(async contract => {
+    PassiveContract.fromTxHash(hash, network).then(async contract => {
       const tmp = new PollContract(contract.params)
       for (let key in tmp) poll[key] = tmp[key]
       poll.$pick(contract, ["type", "state", "destination"])

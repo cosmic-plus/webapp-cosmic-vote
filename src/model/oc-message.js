@@ -12,7 +12,7 @@ const NetworkContext = require("./network-context")
 /* Definition */
 class OcMessage extends LiveObject {
   static async fromTxHash (txHash, network) {
-    const txParams = await TxParams.from("txHash", txHash, network)
+    const txParams = await TxParams.from("txHash", txHash, { network })
     return this.fromTxParams(txParams)
   }
 
