@@ -28,7 +28,7 @@ class NewPollTab extends View {
     <div hidden=%not:syncing>
       <button type="button" disabled>
         <span class="Spinner"></span>
-        <span>Waiting for consensus...</spans>
+        <span>Waiting for consensus...</span>
       </button>
       <br>
       <a onclick=%cancelSyncing>Cancel</a>
