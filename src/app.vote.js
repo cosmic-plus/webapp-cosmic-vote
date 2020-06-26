@@ -30,8 +30,16 @@ class VoteTab extends View {
   %voteForm
 
   <form class="Controls">
-    <input type="button" value="Cast Your Vote!" onclick=%postVote>
-    <br>
+    <input type="button" value="Cast Your Vote!" onclick=%postVote
+      hidden=%has:waitingForVote>
+    <div hidden=%not:waitingForVote>
+      <button type="button" disabled>
+        <span class="Spinner"></span>
+        <span>Waiting for consensus...</span>
+      </button>
+      <br>
+      <a onclick=%cancelSyncing>Cancel</a>
+    </div>
   </form>
 
   <hr>
@@ -62,14 +70,36 @@ class VoteTab extends View {
     /* Defaults */
     this.txHash = null
     this.network = null
+    this.waitingForVote = false
 
     /* Imports */
     this.app = app
     this.$import(app, ["poll", "txHash", "syncing", "title"])
   }
 
-  postVote () {
-    this.poll.postVote(this.voteForm.vote)
+  async postVote () {
+    const vote = this.voteForm.vote
+    const frame = this.poll.postVote(vote)
+
+    const frameClosed = new Promise(resolve => {
+      frame.listen("destroy", resolve)
+    })
+    await frameClosed
+    this.waitingForVote = true
+
+    try {
+      await this.poll.waitForVote(vote, 60)
+      this.poll.computeResults()
+      this.app.selectedTabId = "results"
+    } catch (error) {
+      console.error(error)
+    }
+
+    this.waitingForVote = false
+  }
+
+  cancelSyncing () {
+    this.waitingForVote = false
   }
 
   showResultsTab () {

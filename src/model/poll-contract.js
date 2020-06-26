@@ -139,6 +139,29 @@ class PollContract extends Poll {
     })
   }
 
+  async waitForVote (choice, maxTime = 30) {
+    const expected = JSON.stringify(choice)
+
+    const promise = new Promise((resolve, reject) => {
+      timeout(maxTime * 1000).then(() => {
+        cleanup()
+        reject(new Error("The vote haven't been validated"))
+      })
+
+      const callback = ([vote]) => {
+        const returned = JSON.stringify(vote.choice)
+        if (returned !== expected) return
+        cleanup()
+        resolve()
+      }
+
+      const cleanup = () => this.votes.$off("$add", callback)
+      this.votes.$on("$add", callback)
+    })
+
+    return promise
+  }
+
   /* Low Level */
 
   makeMessageCallBuilder (params = {}) {
