@@ -1,6 +1,6 @@
 {
   "name": "cosmic-vote",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-beta.2",
   "description": "The Cosmic.vote website",
   "author": "MisterTicot <mister.ticot@cosmic.plus>",
   "homepage": "https://cosmic.vote",
@@ -47,7 +47,7 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@kisbox/browserslist-config": "^1.0.0-beta.12",
-    "autoprefixer": "^9.8.2",
+    "autoprefixer": "^9.8.4",
     "autoprefixer-cli": "^1.0.0",
     "babel-loader": "^8.1.0",
     "eslint": "^5.16.0",
@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.10.2",
-    "@cosmic-plus/assets": "^1.4.0",
+    "@cosmic-plus/assets": "^1.5.0",
     "@cosmic-plus/base": "^2.8.0",
     "@cosmic-plus/helpers": "^1.0.1",
     "@cosmic-plus/loopcall": "^1.4.1",
