@@ -78,7 +78,6 @@
     "core-js": "^3.6.5",
     "cosmic-lib": "^2.9.0",
     "feather-icons": "^4.28.0",
-    "markdown-loader": "^5.1.0",
     "stellar-sdk": "^5.0.3"
   }
 }

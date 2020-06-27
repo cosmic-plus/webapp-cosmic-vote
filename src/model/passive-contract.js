@@ -6,8 +6,6 @@
  * - content === JSON params
  */
 const { Keypair } = require("@cosmic-plus/base/es5/stellar-sdk")
-const { wrap } = require("@kisbox/helpers")
-
 const OcMessage = require("./oc-message")
 
 /* Definition */
