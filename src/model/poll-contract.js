@@ -27,7 +27,6 @@ class PollContract extends Poll {
       state: null,
       destination: null
     })
-    poll.syncing = true
 
     PassiveContract.fromTxHash(hash, network).then(async contract => {
       const tmp = new PollContract(contract.params)
@@ -35,9 +34,6 @@ class PollContract extends Poll {
       poll.$pick(contract, ["type", "state", "destination", "record"])
 
       const cursor = await poll.fetchVotes()
-      poll.computeResults()
-      poll.syncing = false
-
       poll.streamVotes(cursor)
     })
 
@@ -59,6 +55,7 @@ class PollContract extends Poll {
     this.destination = list
     this.network = "test"
     this.record = {}
+    this.syncing = null
 
     /* Imports */
     this.$import(params, ["network", "type", "state", "destination"])
@@ -123,6 +120,7 @@ class PollContract extends Poll {
 
   async fetchVotes () {
     const callBuilder = this.makeMessageCallBuilder()
+    this.syncing = true
 
     let cursor
     await loopcall(callBuilder, {
@@ -132,6 +130,8 @@ class PollContract extends Poll {
       }
     })
 
+    this.computeResults()
+    this.syncing = false
     return cursor
   }
 
