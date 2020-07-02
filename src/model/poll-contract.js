@@ -88,9 +88,9 @@ class PollContract extends Poll {
 
     this.syncing = true
     let attempts = Math.floor(maxTime / 2)
-    while (this.syncing && !this.txHash) {
+    while (!this.txHash) {
       this.txHash = await maybeFindContract(this.state, network)
-      if (attempts === 0) {
+      if (!this.syncing || attempts === 0) {
         this.syncing = false
         throw new Error("The poll contract haven't been validated")
       }
