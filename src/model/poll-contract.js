@@ -137,7 +137,7 @@ class PollContract extends Poll {
 
   async streamVotes (cursor) {
     const callBuilder = this.makeMessageCallBuilder({ cursor })
-    callBuilder.join("transactions").stream({
+    callBuilder.stream({
       onmessage: this.ingestPaymentRecord.bind(this),
       onerror: console.error
     })
