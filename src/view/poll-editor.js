@@ -40,11 +40,22 @@ class PollEditor extends View {
 
   </fieldset>
 
+  <fieldset>
+    <legend $hint="The address where to list your poll">Listing</legend>
+
+    <input type="text" name="stellar-polls-register" value=%destination
+      placeholder="Public Key or Federated Address (optional)">
+  </fieldset>
+
 </form>
     `)
 
+    /* Defaults */
+    this.members = new LiveArray()
+    this.destination = "list*cosmic.vote"
+
+    /* Imports */
     this.$import(params, ["members", "title", "destination"])
-    if (!this.members) this.members = new LiveArray()
   }
 
   addMember (event) {

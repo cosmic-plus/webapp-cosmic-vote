@@ -15,7 +15,6 @@ const OcMessage = require("./oc-message")
 /* Data */
 const name = "majority-judgment"
 const version = "1.0"
-const list = "GCJSNTA62DOJ4GDMJRUCADFJEBQCRWD2VGRQXZG7KTXKYHTIZ3FJB5NJ"
 
 /* Definition */
 
@@ -52,7 +51,7 @@ class PollContract extends Poll {
     /* Defaults */
     this.type = `${name}@${version}`
     this.state = PassiveContract.makeState()
-    this.destination = list
+    this.destination = null
     this.network = "test"
     this.record = {}
     this.syncing = null
