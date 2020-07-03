@@ -2,9 +2,10 @@
 /**
  * OcMessage
  */
+const loopcall = require("@cosmic-plus/loopcall")
 const TxParams = require("@cosmic-plus/tx-params")
 
-const { LiveObject } = require("@kisbox/model")
+const { LiveObject, LiveArray } = require("@kisbox/model")
 const { xeach } = require("@kisbox/helpers")
 
 const NetworkContext = require("./network-context")
@@ -77,6 +78,65 @@ proto.$on("network", function (network) {
 })
 
 /* Utilities */
+
+OcMessage.listMessages = async function (pubkey, network) {
+  const mailbox = {
+    network,
+    pubkey,
+    inbox: new LiveArray(),
+    outbox: new LiveArray(),
+    cursor: null
+  }
+
+  const that = this
+  const callBuilder = OcMessage.makeMessageCallBuilder(mailbox).order("desc")
+  await loopcall(callBuilder, {
+    filter (paymentRecord) {
+      mailbox.cursor = paymentRecord.id
+      that.addToMailbox(mailbox, paymentRecord)
+    }
+  })
+
+  mailbox.stream = function () {
+    const callBuilder = this.makeMessageCallBuilder(mailbox)
+    this.stopStream = callBuilder.stream({
+      onmessage: record => OcMessage.addToMailbox(mailbox, record),
+      onerror: console.error
+    })
+  }
+
+  return mailbox
+}
+
+OcMessage.addToMailbox = function (mailbox, paymentRecord) {
+  const txRecord = paymentRecord.transaction_attr
+  const txParams = TxParams.from("txRecord", txRecord)
+  txParams.network = mailbox.network
+  if (!this.isTxParamsValid(txParams)) return true
+
+  const message = this.fromTxParams(txParams)
+  if (paymentRecord.to === mailbox.pubkey) {
+    mailbox.inbox.push(message)
+  } else if (paymentRecord.from === mailbox.pubkey) {
+    mailbox.outbox.push(message)
+  }
+}
+
+OcMessage.isTxParamsValid = function (txParams) {
+  return txParams.operations.some(operation => {
+    return operation.type === "manageData" && operation.name === "POST"
+  })
+}
+
+OcMessage.makeMessageCallBuilder = function (params = {}) {
+  const { pubkey, network, cursor } = params
+  const server = NetworkContext.normalize(network).server
+  const callBuilder = server.payments().forAccount(pubkey)
+  if (cursor) callBuilder.cursor(cursor)
+
+  callBuilder.join("transactions")
+  return callBuilder
+}
 
 function contentToOperations (content) {
   if (!(content instanceof Buffer)) {
