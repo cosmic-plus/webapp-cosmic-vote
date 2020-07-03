@@ -41,8 +41,19 @@ class PollContract extends Poll {
 
   static fromTxParams (txParams) {
     const contract = PassiveContract.fromTxParams(txParams)
+    const poll = this.fromPassiveContract(contract)
+    return poll
+  }
+
+  static fromPassiveContract (contract) {
     const poll = new PollContract(contract.params)
-    poll.network = contract.network
+    poll.$pick(contract, ["type", "state", "destination", "record", "network"])
+
+    poll.fetchVotes().then(cursor => {
+      poll.streamVotes(cursor)
+    })
+
+    return poll
   }
 
   constructor (params) {
