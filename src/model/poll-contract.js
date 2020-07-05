@@ -65,7 +65,7 @@ class PollContract extends Poll {
     this.destination = null
     this.network = "test"
     this.record = {}
-    this.syncing = null
+    this.syncing = true
 
     /* Imports */
     this.$import(params, ["network", "type", "state", "destination"])
