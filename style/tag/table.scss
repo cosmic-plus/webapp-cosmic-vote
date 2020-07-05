@@ -1,32 +1,31 @@
 /* Table */
 
-table
-{
+table {
   width: 100%;
-  margin: 0;
+  margin: 1.4em 0;
   border-collapse: collapse;
-  border: solid thin grey(3);
+  border: solid thin grey(4);
 }
 
-th, td
-{
-  padding: 0.5em 0.75em;
+th, td {
+  padding: 0.5rem 0.75rem;
   white-space: nowrap;
-  height: 2.5rem;
+  text-align: left;
 }
 
-th
-{
+th {
   height: 2.8rem;
-  font-size: 1.05em;
+  font-size: 1.05rem;
   background: primary(3);
 }
 
 td {
+  height: 2.5rem;
+
   img {
-    height: 1.5em;
-    width: 1.5em;
-    margin-right: 0.75em;
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-right: 0.75rem;
   }
 }
 
@@ -39,6 +38,14 @@ tr {
 }
 
 tfoot {
-  height: 2em;
-  background: grey(1);
+  height: 2.8rem;
+  background: grey(2);
+
+  td { text-align: right; }
+  input {
+    width: 25%;
+    margin: 0 inherit;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

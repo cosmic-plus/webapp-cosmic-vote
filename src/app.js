@@ -69,6 +69,7 @@ class CosmicVote extends Application {
     this.txHash =
       "4863f317de223e1cc7b84c82e9cc93a92a6c0f5db462a63be8bdb1fdfb442909"
     this.network = "test"
+    this.pollsInbox = "GCJSNTA62DOJ4GDMJRUCADFJEBQCRWD2VGRQXZG7KTXKYHTIZ3FJB5NJ"
 
     /* Imports */
     this.$pick(params, ["network", "txHash"])
@@ -86,6 +87,11 @@ class CosmicVote extends Application {
       title: "Results",
       id: "results",
       view: new CosmicVote.ResultsTab(this)
+    })
+    this.tabs.push({
+      title: "Browse",
+      id: "browse",
+      view: new CosmicVote.BrowseTab(this)
     })
     this.tabs.push({
       title: "New Poll",
@@ -122,6 +128,7 @@ proto.$define("query", ["selectedTabId", "txHash", "network"], function () {
 })
 
 /* Exports */
+CosmicVote.BrowseTab = require("./app.browse")
 CosmicVote.NewPollTab = require("./app.new-poll")
 CosmicVote.ResultsTab = require("./app.results")
 CosmicVote.VoteTab = require("./app.vote")

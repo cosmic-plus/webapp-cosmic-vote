@@ -29,6 +29,7 @@ class Poll extends LiveObject {
     this.grades = grades
     this.members = []
     this.title = null
+    this.results = []
 
     this.$import(params, ["members", "votes", "title"])
     if (!this.members) this.members = []
