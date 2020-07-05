@@ -1,6 +1,6 @@
 {
   "name": "cosmic-vote",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "The Cosmic.vote website",
   "author": "MisterTicot <mister.ticot@cosmic.plus>",
   "homepage": "https://cosmic.vote",
@@ -43,9 +43,9 @@
     "publish-release": "npm run check && npm run tag-release && npm run push-release"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/plugin-transform-runtime": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
     "@kisbox/browserslist-config": "^1.0.0-beta.12",
     "autoprefixer": "^9.8.4",
     "autoprefixer-cli": "^1.0.0",
@@ -62,22 +62,22 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
-    "@cosmic-plus/assets": "^1.5.0",
+    "@babel/runtime": "^7.10.4",
+    "@cosmic-plus/assets": "^1.6.0",
     "@cosmic-plus/base": "^2.8.0",
     "@cosmic-plus/helpers": "^1.0.1",
     "@cosmic-plus/loopcall": "^1.4.1",
     "@cosmic-plus/tx-params": "^1.0.0-beta.5",
     "@cosmic-plus/utils": "^1.0.0",
     "@fortawesome/fontawesome-free": "^5.13.1",
-    "@kisbox/browser": "^1.0.0-beta.12",
+    "@kisbox/browser": "^1.0.0-beta.13",
     "@kisbox/helpers": "^1.0.0-beta.11",
     "@kisbox/model": "^1.0.0-beta.11",
     "@kisbox/service-worker": "^1.0.0-beta.10",
     "@kisbox/utils": "^1.0.0-beta.11",
     "core-js": "^3.6.5",
-    "cosmic-lib": "^2.9.0",
+    "cosmic-lib": "^2.10.1",
     "feather-icons": "^4.28.0",
-    "stellar-sdk": "^5.0.3"
+    "stellar-sdk": "^5.0.4"
   }
 }
