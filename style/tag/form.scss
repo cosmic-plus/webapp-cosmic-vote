@@ -85,6 +85,8 @@ input,
 button,
 [type="checkbox"] + label,
 [type="radio"] + label {
+  appearance: none;
+
   display: inline-block;
   width: 76%;
   height: 2em;
@@ -163,7 +165,6 @@ textarea {
 $select-arrow: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" fill="%23292929"><polygon points="0,0 60,0 30,50"/></svg>';
 
 select {
-  appearance: none;
   background: url($select-arrow) right/1em no-repeat;
 }
 
