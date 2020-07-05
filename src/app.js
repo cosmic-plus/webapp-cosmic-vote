@@ -94,7 +94,7 @@ class CosmicVote extends Application {
       view: new CosmicVote.BrowseTab(this)
     })
     this.tabs.push({
-      title: "New Poll",
+      title: "New",
       id: "new",
       view: new CosmicVote.NewPollTab(this)
     })
