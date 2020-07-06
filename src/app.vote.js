@@ -61,7 +61,7 @@ class VoteTab extends View {
     ones to be considered as suitable for the voter. A candidate with an
     "Indifferent" mention is not explicitly rejected but is not considered
     suitable either because explicit consent has not been given. This is
-    equivalent to a white vote.</p>
+    equivalent to a blank vote.</p>
   </aside>
 
 </section>

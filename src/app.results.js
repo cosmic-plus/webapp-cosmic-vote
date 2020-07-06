@@ -39,11 +39,11 @@ class ResultsTab extends View {
     good</i>, while another (overlapping) majority of voters thinks the
     candidate is <i>at least good</i>.</p>
 
-    <p>To break ties, the result is assorted with the completion of the grade.
-    The completion can be determined graphically, as it represents the point
-    where the median cut the grade. If the median cut the grade right at its
-    start, the completion is 0%. If it cuts it at the end, it is 100%. If it
-    cuts it in the middle, then it is 50%, and so on...</p>
+    <p>To break ties, we join completion of the grade to the result. The
+    completion can be determined graphically, as it represents the point where
+    the median cut the grade. If the median cut the grade right at its start,
+    the completion is 0%. If it cuts it at the end, it is 100%. If it cuts it in
+    the middle, then it is 50%, and so on...</p>
 
     <p>The complete result is noted <code>Grade<sub>+completion</sub></code> and
     represents the level of support or rejection the community has for a given
