@@ -21,7 +21,6 @@ class NewPollTab extends View {
 
   %pollEditor
 
-  <hr>
   <form class="Controls">
     <input type="button" value="Post" onclick=%postPoll
       hidden=%has:syncing>
@@ -35,6 +34,17 @@ class NewPollTab extends View {
     </div>
   </form>
 
+  <hr>
+
+  <aside>
+    <p>A poll contract is made of poll parameters embedded into a Stellar
+    transaction. Once submitted to the network, the transaction ID serves as the
+    contract address. The contract also creates an account to which votes can be
+    sent, and eventually ping one or several listing accounts.</p>
+
+    <p>In general, a poll contract consumes between 2 and 5 operations, while a
+    vote cost 2 operations.</p>
+  </aside>
 </section>
     `)
 
