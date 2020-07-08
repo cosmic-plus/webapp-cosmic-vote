@@ -59,7 +59,7 @@ class OcMessage extends LiveObject {
     return txParams
   }
 
-  toCosmicLink (handler = "https://cosmic.link") {
+  toCosmicLink (handler = "https://test.cosmic.link") {
     const txParams = this.toTxParams()
     const query = txParams.to("query")
     const link = `${handler}/${query}`
