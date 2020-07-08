@@ -49,9 +49,10 @@ class PollContract extends Poll {
     const poll = new PollContract(contract.params)
     poll.$pick(contract, ["type", "state", "destination", "record", "network"])
 
-    poll.fetchVotes().then(cursor => {
-      poll.streamVotes(cursor)
-    })
+    poll.fetchVotes()
+    // poll.fetchVotes().then(cursor => {
+    //   poll.streamVotes(cursor)
+    // })
 
     return poll
   }
