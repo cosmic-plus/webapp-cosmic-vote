@@ -1,6 +1,6 @@
 {
   "name": "cosmic-vote",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "The Cosmic.vote website",
   "author": "MisterTicot <mister.ticot@cosmic.plus>",
   "homepage": "https://cosmic.vote",
@@ -72,7 +72,7 @@
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@kisbox/browser": "^1.0.0-beta.13",
     "@kisbox/helpers": "^1.0.0-beta.11",
-    "@kisbox/model": "^1.0.0-beta.11",
+    "@kisbox/model": "^1.0.0-beta.14",
     "@kisbox/service-worker": "^1.0.0-beta.10",
     "@kisbox/utils": "^1.0.0-beta.11",
     "core-js": "^3.6.5",
