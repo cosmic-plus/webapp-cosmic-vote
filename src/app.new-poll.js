@@ -22,7 +22,7 @@ class NewPollTab extends View {
   %pollEditor
 
   <form class="Controls">
-    <input type="button" value="Post" onclick=%postPoll
+    <input type="button" value="Post That Poll :)" onclick=%postPoll
       hidden=%has:syncing>
     <div hidden=%not:syncing>
       <button type="button" disabled>
