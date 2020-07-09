@@ -22,15 +22,15 @@ class PollEditor extends View {
   </fieldset>
 
   <fieldset>
-    <legend $hint="A short, descriptive title used in vote listing">
+    <legend $hint="A short, descriptive title for your poll.">
       Title
     </legend>
     <input type="text" placeholder="Short Title (optional)" value=%title>
   </fieldset>
 
   <fieldset>
-    <legend $hint="One member minimum">
-      Members
+    <legend $hint="Candidates' names, one entry minimum.">
+      Candidates
     </legend>
 
     %toMemberInput:...members
