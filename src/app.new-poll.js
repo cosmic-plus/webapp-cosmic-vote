@@ -3,7 +3,6 @@
  * CosmicVote.NewPollTab
  */
 const { View } = require("@kisbox/browser")
-const { type } = require("@kisbox/utils")
 
 const PollEditor = require("./view/poll-editor")
 const PollContract = require("./model/poll-contract")
@@ -85,17 +84,6 @@ class NewPollTab extends View {
     this.syncing = false
   }
 }
-
-/* Computations */
-const proto = NewPollTab.prototype
-
-proto.$customDefine("postButtonValue", ["sync"], function () {
-  if (type(this.syncing) === "promise") {
-    return "Waiting for Stellar consensus..."
-  } else {
-    return "Post"
-  }
-})
 
 /* Export */
 module.exports = NewPollTab
