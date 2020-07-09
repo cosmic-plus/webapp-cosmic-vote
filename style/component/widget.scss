@@ -1,0 +1,18 @@
+/* Widget */
+
+.Widget {
+  background: $white;
+
+  padding: 0 3%;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+      margin-left: 1.6em;
+    }
+  }
+}

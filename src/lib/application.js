@@ -3,6 +3,7 @@
  * Generic Application View
  **/
 const { View } = require("@kisbox/browser")
+const { isEmbedded } = require("@kisbox/helpers")
 
 const {
   extractPagename,
@@ -27,13 +28,17 @@ class Application extends View {
   }
 
   constructor (params) {
-    super(`
+    if (isEmbedded) {
+      super(`<main>%selectedTabView</main>`)
+    } else {
+      super(`
 <div class="Application">
   %header
   <main>%selectedTabView</main>
   %footer
 </body>
-    `)
+      `)
+    }
 
     this.$import(params, ["selectedTabId", "name", "logo", "navigation"])
 
