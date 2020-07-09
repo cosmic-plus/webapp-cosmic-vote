@@ -25,7 +25,8 @@ class PollEditor extends View {
     <legend $hint="A short, descriptive title for your poll.">
       Title
     </legend>
-    <input type="text" placeholder="Short Title (optional)" value=%title>
+    <input type="text" value=%title maxlength="28"
+       placeholder="Short Title (optional)">
   </fieldset>
 
   <fieldset>
@@ -34,8 +35,9 @@ class PollEditor extends View {
     </legend>
 
     %toMemberInput:...members
-    <input type="text" placeholder="New Candidate"
-      onkeydown=%addMember value=%newMember>
+    <input type="text" value=%newMember maxlength="28"
+      onkeydown=%addMember
+      placeholder="New Candidate">
     <button type="button" onclick=%addMember>+</button>
 
   </fieldset>
@@ -91,7 +93,7 @@ class PollEditorMember extends View {
   constructor (params) {
     super(`
 <div>
-  <input type="text" value=%id>
+  <input type="text" value=%id maxlength="28">
   <button type="button" onclick=%delete>-</button>
 </div>
     `)
