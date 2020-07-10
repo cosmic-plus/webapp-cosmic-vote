@@ -98,7 +98,7 @@ OcMessage.listMessages = async function (pubkey, network) {
   })
 
   mailbox.stream = function () {
-    const callBuilder = this.makeMessageCallBuilder(mailbox)
+    const callBuilder = that.makeMessageCallBuilder(mailbox)
     this.stopStream = callBuilder.stream({
       onmessage: record => OcMessage.addToMailbox(mailbox, record),
       onerror: console.error
