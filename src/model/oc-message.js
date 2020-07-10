@@ -14,7 +14,9 @@ const NetworkContext = require("./network-context")
 class OcMessage extends LiveObject {
   static async fromTxHash (txHash, network) {
     const txParams = await TxParams.from("txHash", txHash, { network })
-    return this.fromTxParams(txParams)
+    const message = this.fromTxParams(txParams)
+    message.txHash = txHash
+    return message
   }
 
   static fromTxParams (txParams) {
@@ -115,6 +117,7 @@ OcMessage.addToMailbox = function (mailbox, paymentRecord) {
   if (!this.isTxParamsValid(txParams)) return true
 
   const message = this.fromTxParams(txParams)
+  message.txHash = txRecord.hash
   if (paymentRecord.to === mailbox.pubkey) {
     mailbox.inbox.push(message)
   } else if (paymentRecord.from === mailbox.pubkey) {

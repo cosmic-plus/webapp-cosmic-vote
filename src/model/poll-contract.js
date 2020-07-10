@@ -19,22 +19,9 @@ const version = "1.0"
 /* Definition */
 
 class PollContract extends Poll {
-  static fromTxHash (hash, network) {
-    const poll = new PollContract({
-      network: network.id,
-      type: null,
-      state: null,
-      destination: null
-    })
-
-    PassiveContract.fromTxHash(hash, network).then(async contract => {
-      const tmp = new PollContract(contract.params)
-      for (let key in tmp) poll[key] = tmp[key]
-      poll.$pick(contract, ["type", "state", "destination", "record"])
-      await poll.getVotes()
-      poll.streamVotes()
-    })
-
+  static async fromTxHash (hash, network) {
+    const contract = await PassiveContract.fromTxHash(hash, network)
+    const poll = PollContract.fromPassiveContract(contract)
     return poll
   }
 
@@ -46,8 +33,14 @@ class PollContract extends Poll {
 
   static fromPassiveContract (contract) {
     const poll = new PollContract(contract.params)
-    poll.$pick(contract, ["type", "state", "destination", "record", "network"])
-    poll.getVotes()
+    poll.$pick(contract, [
+      "type",
+      "state",
+      "destination",
+      "record",
+      "network",
+      "txHash"
+    ])
     return poll
   }
 
@@ -60,7 +53,7 @@ class PollContract extends Poll {
     this.destination = null
     this.network = "test"
     this.record = {}
-    this.syncing = true
+    this.syncing = null
 
     /* Imports */
     this.$import(params, ["network", "type", "state", "destination"])

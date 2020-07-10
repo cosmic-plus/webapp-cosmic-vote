@@ -73,9 +73,14 @@ class CosmicVote extends Application {
 
     /* Imports */
     this.$pick(params, ["network", "txHash"])
-    if (this.txHash) {
-      this.poll = PollContract.fromTxHash(this.txHash, this.network)
-    }
+
+    /* Poll */
+    this.poll = new PollContract()
+    this.poll.syncing = true
+    PollContract.fromTxHash(this.txHash, this.network).then(async poll => {
+      await poll.getVotes()
+      this.poll = poll
+    })
 
     // Development
     this.tabs.push({
@@ -107,9 +112,13 @@ class CosmicVote extends Application {
 /* Computations */
 const proto = CosmicVote.prototype
 
-proto.$on("poll", function (current, previous) {
-  if (previous) this.$ignore(previous)
-  this.$import(current, ["txHash", "syncing", "network", "title", "record"])
+proto.$on("poll", function (currentPoll, previousPoll) {
+  if (previousPoll) {
+    previousPoll.stopVoteStream()
+    this.$ignore(previousPoll)
+  }
+  this.$import(currentPoll, ["txHash", "syncing", "network", "title", "record"])
+  if (currentPoll.txHash) currentPoll.streamVotes()
 })
 
 proto.$on("network", function () {
