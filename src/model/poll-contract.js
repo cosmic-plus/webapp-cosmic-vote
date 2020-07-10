@@ -31,9 +31,8 @@ class PollContract extends Poll {
       const tmp = new PollContract(contract.params)
       for (let key in tmp) poll[key] = tmp[key]
       poll.$pick(contract, ["type", "state", "destination", "record"])
-
-      const cursor = await poll.fetchVotes()
-      poll.streamVotes(cursor)
+      await poll.getVotes()
+      poll.streamVotes()
     })
 
     return poll
@@ -48,12 +47,7 @@ class PollContract extends Poll {
   static fromPassiveContract (contract) {
     const poll = new PollContract(contract.params)
     poll.$pick(contract, ["type", "state", "destination", "record", "network"])
-
-    poll.fetchVotes()
-    // poll.fetchVotes().then(cursor => {
-    //   poll.streamVotes(cursor)
-    // })
-
+    poll.getVotes()
     return poll
   }
 
@@ -129,25 +123,21 @@ class PollContract extends Poll {
     return frame
   }
 
-  async fetchVotes () {
-    const callBuilder = this.makeMessageCallBuilder()
+  async getVotes (cursor) {
+    const callBuilder = this.makeMessageCallBuilder(cursor)
     this.syncing = true
 
-    let cursor
     await loopcall(callBuilder, {
-      filter: paymentRecord => {
-        cursor = paymentRecord.id
-        this.ingestPaymentRecord(paymentRecord)
-      }
+      filter: paymentRecord => this.ingestPaymentRecord(paymentRecord)
     })
 
     this.computeResults()
     this.syncing = false
-    return cursor
+    return
   }
 
   async streamVotes (cursor) {
-    const callBuilder = this.makeMessageCallBuilder({ cursor })
+    const callBuilder = this.makeMessageCallBuilder(cursor)
     callBuilder.stream({
       onmessage: this.ingestPaymentRecord.bind(this),
       onerror: console.error
@@ -179,8 +169,7 @@ class PollContract extends Poll {
 
   /* Low Level */
 
-  makeMessageCallBuilder (params = {}) {
-    const { cursor } = params
+  makeMessageCallBuilder (cursor = this.cursor) {
     const server = NetworkContext.normalize(this.network).server
     const callBuilder = server.payments().forAccount(this.state)
     if (cursor) callBuilder.cursor(cursor)
@@ -190,6 +179,7 @@ class PollContract extends Poll {
   }
 
   async ingestPaymentRecord (paymentRecord) {
+    this.cursor = paymentRecord.id
     if (paymentRecord.to !== this.state) return
 
     const txRecord = paymentRecord.transaction_attr
