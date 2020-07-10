@@ -138,10 +138,18 @@ class PollContract extends Poll {
 
   async streamVotes (cursor) {
     const callBuilder = this.makeMessageCallBuilder(cursor)
-    callBuilder.stream({
+    this.voteStream = callBuilder.stream({
       onmessage: this.ingestPaymentRecord.bind(this),
       onerror: console.error
     })
+  }
+
+  stopVoteStream () {
+    if (this.voteStream) {
+      const stopStream = this.voteStream
+      this.voteStream = null
+      return stopStream()
+    }
   }
 
   async waitForVote (choice, maxTime = 30) {
