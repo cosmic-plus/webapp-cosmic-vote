@@ -15,7 +15,7 @@ class BrowseTab extends View {
   <h2>Browse Polls</h2>
   <hr>
 
-  %pollsTable
+  <div class="side-scroll">%pollsTable</div>
   <hr>
 
   <aside>
