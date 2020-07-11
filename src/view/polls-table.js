@@ -7,7 +7,6 @@ const { type } = require("@kisbox/utils")
 
 const PassiveContract = require("../model/passive-contract")
 const PollContract = require("../model/poll-contract")
-const NetworkContext = require("../model/network-context")
 
 /* Definition */
 
@@ -42,8 +41,7 @@ class PollsTable extends View {
   }
 
   openRegister () {
-    const network = NetworkContext.normalize(this.network)
-    const networkEndpoint = network.id === "public" ? "public" : "testnet"
+    const networkEndpoint = this.networkId === "public" ? "public" : "testnet"
     const handler = `https://stellar.expert/explorer/${networkEndpoint}/account`
     const url = `${handler}/${this.pollsInbox}`
     open(url, null, "noreferrer")
@@ -55,6 +53,10 @@ class PollsTable extends View {
 
 /* Computations */
 const proto = PollsTable.prototype
+
+proto.$define("networkId", ["network"], function () {
+  return this.network.id
+})
 
 proto.$customDefine("syncing", ["polls"], function () {
   return type(this.polls) === "promise"
@@ -70,8 +72,8 @@ proto.$define("polls", ["messages"], function () {
     })
 })
 
-proto.$define("messages", ["pollsInbox", "network"], async function () {
-  return await PassiveContract.listMessages(this.pollsInbox, this.network)
+proto.$define("messages", ["pollsInbox", "networkId"], async function () {
+  return await PassiveContract.listMessages(this.pollsInbox, this.networkId)
 })
 
 proto.$on("messages", function (current, previous) {
