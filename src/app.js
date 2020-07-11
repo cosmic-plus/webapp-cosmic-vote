@@ -132,7 +132,7 @@ proto.$define("query", ["selectedTabId", "txHash", "network"], function () {
   return Parameters.toQuery({
     tab: this.selectedTabId,
     txHash: this.txHash,
-    network: network.id === "public" ? null : network.id
+    network: network.id
   })
 })
 
