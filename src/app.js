@@ -75,7 +75,7 @@ class CosmicVote extends Application {
     this.$pick(params, ["network", "txHash"])
 
     /* Poll */
-    this.poll = new PollContract()
+    this.poll = new PollContract(this)
     this.poll.syncing = true
     PollContract.fromTxHash(this.txHash, this.network).then(async poll => {
       await poll.getVotes()

@@ -52,7 +52,10 @@ class NewPollTab extends View {
 
     /* Imports */
     this.app = app
-    this.pollEditor = new PollEditor()
+    this.$import(app, ["network"])
+
+    /* Components */
+    this.pollEditor = new PollEditor(this)
     this.pollEditor.members.push("Foo")
     this.pollEditor.members.push("Bar")
   }

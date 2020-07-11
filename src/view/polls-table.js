@@ -26,11 +26,7 @@ class PollsTable extends View {
   </tbody>
 
   <tfoot>
-    <td colspan="3">
-      <span class="Spinner" hidden=%not:syncing></span>
-      <input type="text" value=%pollsInbox $label="Reading from:" readonly>
-      <a onclick=%openRegister>View</a>
-    </td>
+    <td colspan="3">%controls</td>
   </tfoot>
 
 </table>
@@ -38,6 +34,10 @@ class PollsTable extends View {
 
     /* Imports */
     this.$import(params, ["network", "pollsInbox"])
+
+    /* Controls */
+    this.controls = new PollsTable.Controls(this)
+    this.$import(this.controls, ["networkId", "pollInbox"])
   }
 
   openRegister () {
@@ -95,5 +95,6 @@ helpers.toRow = function (poll) {
 }
 
 /* Export */
+PollsTable.Controls = require("./polls-table.controls")
 PollsTable.Row = require("./polls-table.row")
 module.exports = PollsTable

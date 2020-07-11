@@ -16,7 +16,10 @@ class PollEditor extends View {
     super(`
 <form class="PollEditor">
 
-  <fieldset hidden><legend>Network</legend>
+  <fieldset>
+    <legend $hint="The Stellar network where the poll is to be posted.">
+      Network
+    </legend>
     <input type="radio" $group="network" value="public" $label="Public">
     <input type="radio" $group="network" value="test" $label="Test">
   </fieldset>
@@ -62,6 +65,7 @@ class PollEditor extends View {
 
     /* Imports */
     this.$import(params, ["members", "title", "destination"])
+    this.$import(params, ["network"], x => x.id)
   }
 
   addMember (event) {

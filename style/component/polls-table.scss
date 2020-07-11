@@ -1,0 +1,33 @@
+/* PollsTable */
+
+.PollsTable {
+
+  tfoot td {
+    white-space: normal;
+    padding: 0.3em 0.6em;
+  }
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: unset;
+    margin: unset;
+
+    & > * {
+      max-width: 100%;
+      white-space: nowrap;
+    }
+
+    input,
+    select {
+      width: 8em;
+      margin: 0.3em 0.6em;
+    }
+
+    div > span:first-child {
+      display: inline-block;
+      width: 3.5em;
+    }
+  }
+}
