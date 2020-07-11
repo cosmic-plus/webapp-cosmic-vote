@@ -165,7 +165,10 @@ textarea {
 $select-arrow: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" fill="%23292929"><polygon points="0,0 60,0 30,50"/></svg>';
 
 select {
-  background: url($select-arrow) right/1em no-repeat;
+  background-image: url($select-arrow);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 1em;
 }
 
 // Button //
