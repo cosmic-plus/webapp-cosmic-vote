@@ -32,7 +32,7 @@ class PassiveContract extends OcMessage {
     if (this.state) {
       txParams.addOperation("createAccount", {
         destination: this.state,
-        startingBalance: 2
+        startingBalance: 1
       })
     }
 
