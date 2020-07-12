@@ -40,13 +40,17 @@ class Application extends View {
       `)
     }
 
+    /* Imports */
     this.$import(params, ["selectedTabId", "name", "logo", "navigation"])
 
+    /* Components */
     this.header = new Application.Header(params)
     this.footer = new Application.Footer(params)
 
+    /* Navigation */
     this.$import(this.header, ["navigation"])
     this.navigation.$link(this, ["selectedTabView", "selectedTabId"])
+    this.$import(this.navigation, ["query"])
     this.tabs = this.navigation.tabs
   }
 }
@@ -54,7 +58,6 @@ class Application extends View {
 /* Defaults */
 const proto = Application.prototype
 proto.navigation = null
-proto.query = ""
 proto.hash = ""
 
 /* Computations */

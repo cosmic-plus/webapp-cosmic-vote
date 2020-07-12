@@ -19,7 +19,30 @@ class Navigation extends View {
 </div>
     `)
 
+    /* Defaults */
+    this.query = ""
+
+    /* Components */
     this.tabs = CrudArray.from(tabs)
+    this.tabs.$forEach(tab => this.listenQuery(tab))
+
+    /* Events */
+    this.$on("selectedTabView", () => this.refreshQuery())
+  }
+
+  listenQuery (tab) {
+    const queryHandler = () => this.refreshQuery(tab.view)
+    this.$listen(tab.view, "query", queryHandler)
+  }
+
+  refreshQuery (view = this.selectedTabView) {
+    if (view !== this.selectedTabView) return
+
+    let query = `?tab=${this.selectedTabId}`
+    if (view.query && view.query.length > 1) {
+      query += `&${view.query.substr(1)}`
+    }
+    this.query = query
   }
 }
 
