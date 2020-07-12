@@ -30,12 +30,13 @@ form > label {
   display: inline-block;
   width: 100%;
   border: none;
-  margin: auto;
+  margin: 0.6em auto;
+  padding: 0;
 
   & > span:first-child,
   & > legend:first-child {
     display: inline-block;
-    margin: 0.35em 0;
+    margin: 0;
     min-width: 20%;
 
     padding: 0.4em 0.6em;
