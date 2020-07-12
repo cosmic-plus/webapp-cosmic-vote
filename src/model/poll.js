@@ -12,7 +12,7 @@ const { sum } = require("@cosmic-plus/helpers")
 const grades = [
   "Dismissed",
   "Insufficient",
-  "Indifferent",
+  "Undecided",
   "Passable",
   "Good",
   "Excellent"

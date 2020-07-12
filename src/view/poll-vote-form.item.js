@@ -22,7 +22,7 @@ class PollVoteFormItem extends View {
       names: [
         "Dismissed",
         "Insufficient",
-        "Indifferent",
+        "Undecided",
         "Passable",
         "Good",
         "Excellent"

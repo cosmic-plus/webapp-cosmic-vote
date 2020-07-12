@@ -47,20 +47,20 @@ class VoteTab extends View {
 
   <aside>
     <p><strong>When you don't have an opinion about a candidate, please leave it
-    with the "Indifferent" grade.</strong></p>
+    with the "Undecided" grade.</strong></p>
 
     <p><strong>Majority Judgment</strong> is a voting system in which voters can
     assign a grade to as many candidates as they wish.</p>
 
     <p>Grades are ranked from the worst to the best, and belong to one of three
     categories. The first category expresses rejection ("Dismissed",
-    "Insufficient"). The second category expresses indecision ("Indifferent").
+    "Insufficient"). The second category expresses indecision ("Undecided").
     The last category expresses a level of consent ("Passable", "Good",
     "Excellent").</p>
 
     <p>The candidates that get grades "Passable" to "Excellent" are the only
     ones to be considered as suitable for the voter. A candidate with an
-    "Indifferent" mention is not explicitly rejected but is not considered
+    "Undecided" mention is not explicitly rejected but is not considered
     suitable either because explicit consent has not been given. This is
     equivalent to a blank vote.</p>
   </aside>
