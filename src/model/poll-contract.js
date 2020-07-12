@@ -199,7 +199,7 @@ class PollContract extends Poll {
   }
 }
 
-/* Conposition */
+/* Composition */
 hide(PollContract.prototype, "toCosmicLink", OcMessage.prototype.toCosmicLink)
 
 /* Helpers */

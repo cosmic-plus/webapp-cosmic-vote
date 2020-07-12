@@ -7,8 +7,6 @@ const { LiveArray } = require("@kisbox/model")
 
 const { remove } = require("@cosmic-plus/helpers")
 
-// const CrudArray = require("../lib/crud-array")
-
 /* Definition */
 
 class PollEditor extends View {

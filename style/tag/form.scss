@@ -14,7 +14,6 @@ form .third + label {
   min-width: 6em;
 }
 
-
 // Containers //
 
 form {
@@ -44,6 +43,9 @@ form > label {
     white-space: nowrap;
 
     text-align: left;
+  }
+
+  & > legend:first-child {
     font-weight: bold;
 
     &::after {
