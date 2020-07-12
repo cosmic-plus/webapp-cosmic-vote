@@ -84,11 +84,11 @@ class VoteTab extends View {
     const frameClosed = new Promise(resolve => {
       frame.listen("destroy", resolve)
     })
-    await frameClosed
-    this.waitingForVote = true
+    frameClosed.then(() => this.waitingForVote = true)
 
     try {
-      await this.poll.waitForVote(vote, 60)
+      await this.poll.waitForVote(vote, 90)
+      await frameClosed
       this.poll.computeResults()
       this.app.selectedTabId = "results"
     } catch (error) {
