@@ -5,7 +5,6 @@
 const Application = require("./lib/application")
 const PollContract = require("./model/poll-contract")
 const NetworkContext = require("./model/network-context")
-const Parameters = require("./lib/parameters")
 
 require("./feat.poll.auto-update")
 
@@ -125,15 +124,6 @@ proto.$on("network", function () {
   if (typeof this.network === "string") {
     this.network = NetworkContext.normalize(this.network)
   }
-})
-
-proto.$define("query", ["selectedTabId", "txHash", "network"], function () {
-  const network = NetworkContext.normalize(this.network)
-  return Parameters.toQuery({
-    tab: this.selectedTabId,
-    txHash: this.txHash,
-    network: network.id
-  })
 })
 
 /* Exports */

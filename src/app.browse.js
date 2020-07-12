@@ -4,6 +4,7 @@
  * */
 const { View } = require("@kisbox/browser")
 
+const Parameters = require("./lib/parameters")
 const PollsTable = require("./view/polls-table")
 
 /* Definition */
@@ -30,7 +31,10 @@ class BrowseTab extends View {
 
     /* Imports */
     this.app = app
+
+    /* Components */
     this.pollsTable = new PollsTable(app)
+    this.$import(this.pollsTable, ["networkId", "pollsInbox"])
 
     /* Events */
     this.pollsTable.$on("clickPoll", ([poll]) => this.selectPoll(poll))
@@ -41,6 +45,16 @@ class BrowseTab extends View {
     this.app.selectedTabId = "results"
   }
 }
+
+/* Computations */
+const proto = BrowseTab.prototype
+
+proto.$define("query", ["networkId", "pollsInbox"], function () {
+  return Parameters.toQuery({
+    pollsInbox: this.pollsInbox,
+    network: this.networkId
+  })
+})
 
 /* Export */
 module.exports = BrowseTab

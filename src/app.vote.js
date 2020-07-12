@@ -4,6 +4,7 @@
  */
 const { View } = require("@kisbox/browser")
 
+const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
 const PollVoteForm = require("./view/poll-vote-form")
 
@@ -69,12 +70,11 @@ class VoteTab extends View {
 
     /* Defaults */
     this.txHash = null
-    this.network = null
     this.waitingForVote = false
 
     /* Imports */
     this.app = app
-    this.$import(app, ["poll", "txHash", "syncing", "title"])
+    this.$import(app, ["poll", "txHash", "syncing", "title", "network"])
   }
 
   async postVote () {
@@ -132,6 +132,13 @@ proto.$define("sectionTitle", ["title"], function () {
 
 proto.$define("voteForm", ["poll"], function () {
   return new PollVoteForm(this.poll)
+})
+
+proto.$define("query", ["txHash", "network"], function () {
+  return Parameters.toQuery({
+    txHash: this.txHash,
+    network: this.network.id
+  })
 })
 
 /* Export */

@@ -4,6 +4,7 @@
  */
 const { View } = require("@kisbox/browser")
 
+const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
 const PollResults = require("./view/poll-results")
 
@@ -59,8 +60,9 @@ class ResultsTab extends View {
 </section>
     `)
 
+    /* Imports */
     this.app = app
-    this.$import(app, ["poll", "txHash", "title", "syncing"])
+    this.$import(app, ["poll", "txHash", "title", "syncing", "network"])
   }
 
   showVoteTab () {
@@ -94,6 +96,13 @@ proto.$define("sectionTitle", ["title"], function () {
 proto.$define("results", ["poll"], function () {
   this.poll.computeResults()
   return new PollResults(this.poll)
+})
+
+proto.$define("query", ["txHash", "network"], function () {
+  return Parameters.toQuery({
+    txHash: this.txHash,
+    network: this.network.id
+  })
 })
 
 /* Export */
