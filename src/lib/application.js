@@ -29,7 +29,7 @@ class Application extends View {
 
   constructor (params) {
     if (isEmbedded) {
-      super(`<main>%selectedTabView</main>`)
+      super(`<main class="Embed">%selectedTabView</main>`)
     } else {
       super(`
 <div class="Application">

@@ -33,9 +33,9 @@ class NewPollTab extends View {
     </div>
   </form>
 
-  <hr>
-
   <aside>
+    <hr>
+
     <p>A poll contract is made of poll parameters embedded into a Stellar
     transaction. Once submitted to the network, the transaction ID serves as the
     contract address. The contract also creates an account to which votes can be
@@ -43,6 +43,7 @@ class NewPollTab extends View {
 
     <p>In general, a poll contract consumes between 2 and 5 operations, while a
     vote cost 2 operations.</p>
+
   </aside>
 </section>
     `)

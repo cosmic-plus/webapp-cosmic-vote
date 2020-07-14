@@ -17,13 +17,15 @@ class BrowseTab extends View {
   <hr>
 
   <div class="side-scroll">%pollsTable</div>
-  <hr>
 
   <aside>
+    <hr>
+
     <p>At creation, polls contract can ping one or several accounts by sending
     them the smallest possible amount of XLM. Accounts that get pinged that way
     serve as polls inbox. All the contracts that are sent to them can be listed
     & tracked at once.</p>
+
   </aside>
 
 </section>

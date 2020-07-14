@@ -30,9 +30,10 @@ class ResultsTab extends View {
 
   %results
 
-  <hr>
 
   <aside>
+    <hr>
+
     <p>Each candidate's votes are sorted from the worst to the best grade. We
     take the candidate median grade, which we call the "majority grade", to be
     the result of that candidate. If a candidate gets a "good" grade, we know
@@ -55,6 +56,7 @@ class ResultsTab extends View {
     This is fundamentally different from traditional voting systems, in which
     adding or removing a candidate will change other candidates' scores (and,
     more often than not, the whole ranking in disturbing ways).</p>
+
   </aside>
 
 </section>

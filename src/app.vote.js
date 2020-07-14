@@ -43,9 +43,9 @@ class VoteTab extends View {
     </div>
   </form>
 
-  <hr>
-
   <aside>
+    <hr>
+
     <p><strong>When you don't have an opinion about a candidate, please leave it
     with the "Undecided" grade.</strong></p>
 
@@ -63,6 +63,7 @@ class VoteTab extends View {
     "Undecided" mention is not explicitly rejected but is not considered
     suitable either because explicit consent has not been given. This is
     equivalent to a blank vote.</p>
+
   </aside>
 
 </section>
