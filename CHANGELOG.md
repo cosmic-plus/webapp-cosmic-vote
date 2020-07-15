@@ -104,3 +104,5 @@ releases, please check this changelog before upgrading.
 ## 1.0.0-beta.1 - 2020-06-21
 
 Initial release.
+
+[@orbitlens]: https://keybase.io/orbitlens
