@@ -66,8 +66,8 @@ class CosmicVote extends Application {
 
     /* Defaults */
     this.txHash =
-      "4863f317de223e1cc7b84c82e9cc93a92a6c0f5db462a63be8bdb1fdfb442909"
-    this.network = "test"
+      "0582a51ba2d6f0dcdca5cffa4dc262787a834a9524c9b37e028987ab46bad3d7"
+    this.network = "public"
     this.pollsInbox = "GCJSNTA62DOJ4GDMJRUCADFJEBQCRWD2VGRQXZG7KTXKYHTIZ3FJB5NJ"
 
     /* Imports */
