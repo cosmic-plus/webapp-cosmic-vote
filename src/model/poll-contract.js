@@ -86,8 +86,8 @@ class PollContract extends Poll {
 
     this.syncing = true
     let attempts = Math.floor(maxTime / 2)
-    while (!this.txHash) {
-      this.txHash = await maybeFindContract(this.state, network)
+    while (!this.record) {
+      this.record = await maybeFindContract(this.state, network)
       if (!this.syncing || attempts === 0) {
         this.syncing = false
         throw new Error("The poll contract haven't been validated")
@@ -95,6 +95,7 @@ class PollContract extends Poll {
       attempts--
       await timeout(2000)
     }
+    this.txHash = this.record.transaction_hash
 
     this.syncing = false
     this.streamVotes()
@@ -216,7 +217,7 @@ async function fundingTransaction (pubkey, network) {
   const payments = network.server.payments()
   const callBuilder = payments.forAccount(pubkey).limit(1)
   const response = await callBuilder.join("transactions").call()
-  return response.records[0].transaction_hash
+  return response.records[0]
 }
 
 /* Export */
