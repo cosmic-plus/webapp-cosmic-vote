@@ -35,7 +35,7 @@ class PollEditor extends View {
       Candidates
     </legend>
 
-    %toMemberInput:...members
+    %toCandidate:...members
     <input type="text" value=%newMember maxlength="28"
       onkeydown=%addMember
       placeholder="New Candidate">
@@ -104,7 +104,7 @@ proto.$define("maxTime", ["closingDate", "closingTime"], function () {
 const helpers = PollEditor.helpers
 
 helpers.toMemberInput = function (id) {
-  const view = new PollEditorMember({ id })
+  const view = new PollEditor.Candidate({ id })
   view.$on("delete", () => remove(this.members, id))
   view.$on("id", (current, previous) => {
     const index = this.members.indexOf(previous)
@@ -113,20 +113,7 @@ helpers.toMemberInput = function (id) {
   return view
 }
 
-class PollEditorMember extends View {
-  constructor (params) {
-    super(`
-<div>
-  <input type="text" value=%id maxlength="28">
-  <button type="button" onclick=%delete>-</button>
-</div>
-    `)
-
-    this.$import(params, ["id"])
-  }
-
-  delete () {}
-}
+/* Special Attributes */
 
 /* Hint */
 const { html } = require("@kisbox/browser")
@@ -137,10 +124,12 @@ View.attributes.hint = function (view, domNode, value) {
 }
 
 /* Helpers */
+
 html.fromString = function (string) {
   const tmp = html("div", { innerHTML: string })
   return tmp.childNodes[0]
 }
 
 /* Export */
+PollEditor.Candidate = require("./poll-editor.candidate")
 module.exports = PollEditor
