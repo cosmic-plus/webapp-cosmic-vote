@@ -55,11 +55,22 @@ class PollEditor extends View {
 
   </fieldset>
 
+  <fieldset>
+    <legend $hint="The date & time at which your poll will end. (optional)">
+      Closing Time
+    </legend>
+    <div class="group">
+      <input type="date" value=%closingDate>
+      <input type="time" value=%closingTime>
+    </div>
+  </fieldset>
+
 </form>
     `)
 
     /* Defaults */
     this.members = new LiveArray()
+    this.closingTime = "00:00"
 
     /* Imports */
     this.$import(params, ["members", "title", "destination"])
@@ -77,6 +88,17 @@ class PollEditor extends View {
     this.newMember = null
   }
 }
+
+/* Computations */
+const proto = PollEditor.prototype
+
+proto.$define("maxTime", ["closingDate", "closingTime"], function () {
+  if (!this.closingDate || !this.closingTime) return
+
+  const isoDate = `${this.closingDate}T${this.closingTime}`
+  const timestamp = Number(new Date(isoDate))
+  return timestamp
+})
 
 /* Helpers */
 const helpers = PollEditor.helpers

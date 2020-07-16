@@ -19,13 +19,14 @@ class PollResults extends View {
 
   <footer hidden=%has:syncing>
     <span>%timeSinceOpen</span>
-    <span>Never expire</span>
+    <span>%timeBeforeClose</span>
     <span>Number of votes: %{length}</span>
   </footer>
 </div>
     `)
 
-    this.$import(poll, ["results", "votes", "record", "syncing"])
+    /* Imports */
+    this.$import(poll, ["results", "votes", "record", "syncing", "maxTime"])
   }
 }
 
@@ -42,6 +43,16 @@ proto.$define("timeSinceOpen", ["record"], function () {
   const openingTimeDiff = Date.now() - new Date(this.record.created_at)
   const prettyDiff = prettyInterval(openingTimeDiff)
   return `Open since ${prettyDiff}`
+})
+
+proto.$define("timeBeforeClose", ["maxTime"], function () {
+  if (!this.maxTime) return "Never closes"
+
+  const closingTimeDiff = this.maxTime - Date.now()
+  if (closingTimeDiff < 0) return "Closed"
+
+  const prettyDiff = prettyInterval(closingTimeDiff)
+  return `Close in ${prettyDiff}`
 })
 
 /* Helpers */

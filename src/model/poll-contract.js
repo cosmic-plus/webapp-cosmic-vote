@@ -54,9 +54,10 @@ class PollContract extends Poll {
     this.network = "test"
     this.record = null
     this.syncing = null
+    this.maxTime = null
 
     /* Imports */
-    this.$import(params, ["network", "type", "state", "destination"])
+    this.$import(params, ["network", "type", "state", "destination", "maxTime"])
   }
 
   toPassiveContract () {
@@ -65,10 +66,11 @@ class PollContract extends Poll {
       network: this.network,
       state: this.state,
       destination: this.destination,
-      params: {
+      params: deleteNullish({
         title: this.title,
-        members: this.members
-      }
+        members: this.members,
+        maxTime: this.maxTime
+      })
     })
 
     this.type = contract.type
@@ -187,6 +189,12 @@ class PollContract extends Poll {
     const txRecord = paymentRecord.transaction_attr
     if (txRecord.memo !== "Vote") return
 
+    // txRecord filter
+    if (this.maxTime) {
+      const recordTime = new Date(txRecord.created_at)
+      if (recordTime > this.maxTime) return
+    }
+
     const txParams = TxParams.from("txRecord", txRecord)
     const input = PassiveContract.fromTxParams(txParams)
 
@@ -218,6 +226,13 @@ async function fundingTransaction (pubkey, network) {
   const callBuilder = payments.forAccount(pubkey).limit(1)
   const response = await callBuilder.join("transactions").call()
   return response.records[0]
+}
+
+function deleteNullish (object) {
+  for (let key in object) {
+    if (object[key] == null) delete object[key]
+  }
+  return object
 }
 
 /* Export */
