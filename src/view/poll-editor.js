@@ -103,7 +103,7 @@ proto.$define("maxTime", ["closingDate", "closingTime"], function () {
 /* Helpers */
 const helpers = PollEditor.helpers
 
-helpers.toMemberInput = function (id) {
+helpers.toCandidate = function (id) {
   const view = new PollEditor.Candidate({ id })
   view.$on("delete", () => remove(this.members, id))
   view.$on("id", (current, previous) => {
@@ -111,23 +111,6 @@ helpers.toMemberInput = function (id) {
     this.members[index] = current
   })
   return view
-}
-
-/* Special Attributes */
-
-/* Hint */
-const { html } = require("@kisbox/browser")
-View.attributes.hint = function (view, domNode, value) {
-  const helpCircle = require("feather-icons/dist/icons/help-circle.svg")
-  html.append(domNode, html.fromString(helpCircle))
-  domNode.dataset.hint = value
-}
-
-/* Helpers */
-
-html.fromString = function (string) {
-  const tmp = html("div", { innerHTML: string })
-  return tmp.childNodes[0]
 }
 
 /* Export */

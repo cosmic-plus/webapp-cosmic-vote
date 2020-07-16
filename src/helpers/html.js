@@ -8,6 +8,11 @@ const { html } = require("@kisbox/browser")
 
 /* Library */
 
+my.stringToHtml = function (string) {
+  const tmp = html("div", { innerHTML: string })
+  return tmp.childNodes[0]
+}
+
 my.gaugeMeter = function ({ gauge, names, colors = my.gaugeMeter.colors }) {
   const spans = gauge.map((ratio, index) => {
     const width = `${nice(ratio * 100)}%`
