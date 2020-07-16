@@ -52,7 +52,7 @@ class PollContract extends Poll {
     this.state = PassiveContract.makeState()
     this.destination = null
     this.network = "test"
-    this.record = {}
+    this.record = null
     this.syncing = null
 
     /* Imports */
