@@ -15,14 +15,6 @@ class PollEditor extends View {
 <form class="PollEditor">
 
   <fieldset>
-    <legend $hint="The Stellar network where the poll is to be posted.">
-      Network
-    </legend>
-    <input type="radio" $group="network" value="public" $label="Public">
-    <input type="radio" $group="network" value="test" $label="Test">
-  </fieldset>
-
-  <fieldset>
     <legend $hint="A short, descriptive title for your poll.">
       Title
     </legend>
@@ -55,15 +47,35 @@ class PollEditor extends View {
 
   </fieldset>
 
-  <fieldset>
-    <legend $hint="The date & time at which your poll will end. (optional)">
-      Closing Time
-    </legend>
-    <div class="group">
-      <input type="date" value=%closingDate>
-      <input type="time" value=%closingTime>
-    </div>
-  </fieldset>
+  <nav>
+    <a onclick=%switchAdvancedSettings>
+      <span hidden=%showAdvancedSettings>⮞</span>
+      <span hidden=%not:showAdvancedSettings>⮟</span>
+      Advanced Settings
+    </a>
+  </nav>
+
+  <div hidden=%not:showAdvancedSettings>
+    <fieldset>
+      <legend $hint="The date & time at which your poll will end. (optional)">
+        Closing Time
+      </legend>
+      <div class="group">
+        <input type="date" value=%closingDate>
+        <input type="time" value=%closingTime>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend $hint="The Stellar network where the poll is to be posted.">
+        Network
+      </legend>
+      <input type="radio" $group="network" value="public"
+        $label="Stellar Public">
+      <input type="radio" $group="network" value="test"
+        $label="Stellar Test">
+    </fieldset>
+  </div>
 
 </form>
     `)
@@ -71,10 +83,15 @@ class PollEditor extends View {
     /* Defaults */
     this.members = new LiveArray()
     this.closingTime = "00:00"
+    this.showAdvancedSettings = false
 
     /* Imports */
     this.$import(params, ["members", "title", "destination"])
     this.$import(params, ["network"], x => x.id)
+  }
+
+  switchAdvancedSettings () {
+    this.showAdvancedSettings = !this.showAdvancedSettings
   }
 
   addMember (event) {
