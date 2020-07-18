@@ -3,3 +3,8 @@
 .side-scroll {
   overflow-x: auto;
 }
+
+.error {
+  font-weight: bold;
+  color: $error;
+}

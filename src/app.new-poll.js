@@ -22,7 +22,7 @@ class NewPollTab extends View {
 
   <form class="Controls">
     <input type="button" value="Post That Poll :)" onclick=%postPoll
-      hidden=%has:syncing>
+      hidden=%has:syncing disabled=%error>
     <div hidden=%not:syncing>
       <button type="button" disabled>
         <span class="Spinner"></span>
@@ -31,6 +31,8 @@ class NewPollTab extends View {
       <br>
       <a onclick=%cancelSyncing>Cancel</a>
     </div>
+    <br>
+    <span class="error">%error</span>
   </form>
 
   <aside>
@@ -50,6 +52,7 @@ class NewPollTab extends View {
 
     /* Defaults */
     this.syncing = null
+    this.error = null
 
     /* Imports */
     this.app = app
@@ -59,18 +62,28 @@ class NewPollTab extends View {
     this.pollEditor = new PollEditor(this)
     this.pollEditor.members.push("Foo")
     this.pollEditor.members.push("Bar")
+
+    /* Events */
+    this.pollEditor.$on(["$set"], () => this.error = null)
   }
 
   async postPoll () {
     this.poll = new PollContract(this.pollEditor)
-    const link = this.poll.toCosmicLink()
-    const frame = new SideFrame(link)
 
-    const frameClosed = new Promise(resolve => {
-      frame.listen("destroy", resolve)
-    })
-    await frameClosed
-    this.syncing = true
+    try {
+      const link = this.poll.toCosmicLink()
+
+      const frame = new SideFrame(link)
+      const frameClosed = new Promise(resolve => {
+        frame.listen("destroy", resolve)
+      })
+      await frameClosed
+      this.syncing = true
+    } catch (error) {
+      console.error(error)
+      this.error = error
+      return
+    }
 
     try {
       await this.poll.waitValidation(60)

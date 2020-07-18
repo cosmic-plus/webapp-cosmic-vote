@@ -61,6 +61,8 @@ class PollContract extends Poll {
   }
 
   toPassiveContract () {
+    this.checkParams()
+
     const contract = new PassiveContract({
       type: this.type,
       network: this.network,
@@ -81,6 +83,12 @@ class PollContract extends Poll {
   toTxParams () {
     const contract = this.toPassiveContract()
     return contract.toTxParams()
+  }
+
+  checkParams () {
+    if (this.members.length === 0) {
+      throw new Error("One candidate is required")
+    }
   }
 
   async waitValidation (maxTime = 30) {
