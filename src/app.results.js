@@ -47,6 +47,8 @@ class ResultsTab extends View {
     the completion is 0%. If it cuts it at the end, it is 100%. If it cuts it in
     the middle, then it is 50%, and so on...</p>
 
+    <img src="./images/results-example.png">
+
     <p>The complete result is noted <code>Grade<sub>+completion</sub></code> and
     represents the level of support or rejection the community has for a given
     candidate. The ranking is obtained by sorting candidates this way: first by
