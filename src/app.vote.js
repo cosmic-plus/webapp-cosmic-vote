@@ -7,6 +7,7 @@ const { View } = require("@kisbox/browser")
 const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
 const PollVoteForm = require("./view/poll-vote-form")
+const ShareButton = require("./view/share-button")
 
 /* Definition */
 
@@ -14,6 +15,8 @@ class VoteTab extends View {
   constructor (app) {
     super(`
 <section class="Widget">
+  %shareButton
+
   <h2 hidden=%not:syncing>Reading Contract...</h2>
   <h2 hidden=%has:syncing>%sectionTitle</h2>
   <hr>
@@ -76,6 +79,9 @@ class VoteTab extends View {
     /* Imports */
     this.app = app
     this.$import(app, ["poll", "txHash", "syncing", "title", "network"])
+
+    /* Components */
+    this.shareButton = new ShareButton(this)
   }
 
   async postVote () {

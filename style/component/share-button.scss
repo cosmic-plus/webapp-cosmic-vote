@@ -1,0 +1,24 @@
+/* ShareButton */
+
+.ShareButton {
+  position: absolute;
+  top: 1em;
+  right: 3%;
+
+  user-select: none;
+
+  span {
+    padding: 0 0.4em;
+    color: primary(5);
+    pointer-events: none;
+
+    transition: all 0.2s ease;
+    margin-right: -1em;
+    opacity: 0;
+
+    &.activated {
+      opacity: 1;
+      margin-right: 0;
+    }
+  }
+}
