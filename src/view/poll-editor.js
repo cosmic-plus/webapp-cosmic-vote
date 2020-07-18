@@ -19,7 +19,7 @@ class PollEditor extends View {
       Title
     </legend>
     <input type="text" value=%title maxlength="28"
-       placeholder="Short Title (optional)">
+       placeholder="Short Title">
   </fieldset>
 
   <fieldset>

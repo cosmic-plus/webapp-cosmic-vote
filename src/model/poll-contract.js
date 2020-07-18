@@ -86,6 +86,9 @@ class PollContract extends Poll {
   }
 
   checkParams () {
+    if (!this.title) {
+      throw new Error("Missing title")
+    }
     if (this.members.length === 0) {
       throw new Error("One candidate is required")
     }
