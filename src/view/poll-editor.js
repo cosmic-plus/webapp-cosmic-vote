@@ -94,7 +94,7 @@ class PollEditor extends View {
     this.showAdvancedSettings = !this.showAdvancedSettings
   }
 
-  addMember (event) {
+  addMember (event = {}) {
     if (event.keyCode && event.keyCode !== 13) return
     if (!this.newMember) return
 
@@ -103,6 +103,12 @@ class PollEditor extends View {
 
     this.members.push(this.newMember)
     this.newMember = null
+  }
+
+  normalize () {
+    if (this.newMember) {
+      this.addMember()
+    }
   }
 }
 

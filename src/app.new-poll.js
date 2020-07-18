@@ -68,6 +68,7 @@ class NewPollTab extends View {
   }
 
   async postPoll () {
+    this.pollEditor.normalize()
     this.poll = new PollContract(this.pollEditor)
 
     try {
