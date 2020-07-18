@@ -40,13 +40,6 @@ class PollsTable extends View {
     this.$import(this.controls, ["networkId", "pollInbox"])
   }
 
-  openRegister () {
-    const networkEndpoint = this.networkId === "public" ? "public" : "testnet"
-    const handler = `https://stellar.expert/explorer/${networkEndpoint}/account`
-    const url = `${handler}/${this.pollsInbox}`
-    open(url, null, "noreferrer")
-  }
-
   /* Events */
   clickPoll () {}
 }

@@ -51,7 +51,7 @@ class PollEditor extends View {
     <a onclick=%switchAdvancedSettings>
       <span hidden=%showAdvancedSettings>⮞</span>
       <span hidden=%not:showAdvancedSettings>⮟</span>
-      Advanced Settings
+      &nbsp;Advanced Settings
     </a>
   </nav>
 
