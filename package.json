@@ -1,6 +1,6 @@
 {
   "name": "cosmic-vote",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "The Cosmic.vote website",
   "author": "MisterTicot <mister.ticot@cosmic.plus>",
   "homepage": "https://cosmic.vote",
@@ -43,8 +43,8 @@
     "publish-release": "npm run check && npm run tag-release && npm run push-release"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@kisbox/browserslist-config": "^1.0.0-beta.12",
     "autoprefixer": "^9.8.5",
@@ -62,14 +62,14 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@babel/runtime": "^7.10.4",
+    "@babel/runtime": "^7.10.5",
     "@cosmic-plus/assets": "^1.6.0",
     "@cosmic-plus/base": "^2.8.0",
     "@cosmic-plus/helpers": "^1.0.1",
     "@cosmic-plus/loopcall": "^1.4.1",
     "@cosmic-plus/tx-params": "^1.0.0-beta.6",
     "@cosmic-plus/utils": "^1.0.0",
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "@kisbox/browser": "^1.0.0-beta.15",
     "@kisbox/helpers": "^1.0.0-beta.11",
     "@kisbox/model": "^1.0.0-beta.14",
