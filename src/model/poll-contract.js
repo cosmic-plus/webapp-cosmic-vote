@@ -4,7 +4,6 @@
  * */
 const loopcall = require("@cosmic-plus/loopcall")
 const TxParams = require("@cosmic-plus/tx-params")
-const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
 const { hide, timeout } = require("@kisbox/helpers")
 
 const Poll = require("./poll")
@@ -115,7 +114,7 @@ class PollContract extends Poll {
     return this.txHash
   }
 
-  postVote (vote) {
+  voteToTxParams (vote) {
     const network = NetworkContext.normalize(this.network)
 
     const message = new OcMessage({
@@ -125,9 +124,8 @@ class PollContract extends Poll {
       content: JSON.stringify(vote)
     })
 
-    const txRequest = message.toCosmicLink()
-    const frame = new SideFrame(txRequest)
-    return frame
+    const txParams = message.toTxParams()
+    return txParams
   }
 
   async getVotes (cursor) {

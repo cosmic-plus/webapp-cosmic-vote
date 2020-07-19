@@ -4,6 +4,8 @@
  */
 const { View } = require("@kisbox/browser")
 
+const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
+
 const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
 const PollVoteForm = require("./view/poll-vote-form")
@@ -75,6 +77,7 @@ class VoteTab extends View {
     /* Defaults */
     this.txHash = null
     this.waitingForVote = false
+    this.txHandler = "https://test.cosmic.link"
 
     /* Imports */
     this.app = app
@@ -86,7 +89,11 @@ class VoteTab extends View {
 
   async postVote () {
     const vote = this.voteForm.vote
-    const frame = this.poll.postVote(vote)
+    const txParams = this.poll.voteToTxParams(vote)
+
+    const txQuery = txParams.to("query")
+    const txRequest = `${this.txHandler}/${txQuery}`
+    const frame = new SideFrame(txRequest)
 
     const frameClosed = new Promise(resolve => {
       frame.listen("destroy", resolve)
