@@ -82,7 +82,14 @@ class VoteTab extends View {
 
     /* Imports */
     this.app = app
-    this.$import(app, ["poll", "txHash", "syncing", "title", "network"])
+    this.$import(app, [
+      "poll",
+      "txHash",
+      "syncing",
+      "title",
+      "network",
+      "userPubkeys"
+    ])
 
     /* Components */
     this.shareButton = new ShareButton(this)
@@ -108,6 +115,7 @@ class VoteTab extends View {
 
     try {
       this.ballot = await this.poll.waitForBallot({ vote, timecheck })
+      this.userPubkeys.put(this.ballot.id)
       await frameClosed
       this.poll.computeResults()
       this.app.selectedTabId = "results"

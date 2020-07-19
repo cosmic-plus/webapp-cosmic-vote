@@ -4,6 +4,7 @@
  */
 const Application = require("./lib/application")
 const PollContract = require("./model/poll-contract")
+const Pubkeys = require("./model/pubkeys")
 const NetworkContext = require("./model/network-context")
 
 require("./feat.poll.auto-update")
@@ -72,6 +73,8 @@ class CosmicVote extends Application {
 
     /* Imports */
     this.$pick(params, ["network", "txHash"])
+    this.userPubkeys = new Pubkeys()
+    this.userPubkeys.$store("userPubkeys")
 
     /* Poll */
     this.poll = new PollContract(this)
