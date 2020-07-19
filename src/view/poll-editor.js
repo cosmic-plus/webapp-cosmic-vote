@@ -14,6 +14,16 @@ class PollEditor extends View {
     super(`
 <form class="PollEditor">
 
+    <fieldset>
+      <legend $hint="The Stellar network where the poll is to be posted.">
+        Network
+      </legend>
+      <input type="radio" $group="network" value="public"
+        $label="Stellar Public">
+      <input type="radio" $group="network" value="test"
+        $label="Stellar Test">
+    </fieldset>
+
   <fieldset>
     <legend $hint="A short, descriptive title for your poll.">
       Title
@@ -64,16 +74,6 @@ class PollEditor extends View {
         <input type="date" value=%closingDate>
         <input type="time" value=%closingTime>
       </div>
-    </fieldset>
-
-    <fieldset>
-      <legend $hint="The Stellar network where the poll is to be posted.">
-        Network
-      </legend>
-      <input type="radio" $group="network" value="public"
-        $label="Stellar Public">
-      <input type="radio" $group="network" value="test"
-        $label="Stellar Test">
     </fieldset>
   </div>
 
