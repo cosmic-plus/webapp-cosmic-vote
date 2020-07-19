@@ -63,6 +63,15 @@
     }
   }
 
+  &:not(:hover) {
+    .Gauge {
+      span.selected {
+        outline: 1px solid grey(6);
+        outline-offset: -1px;
+      }
+    }
+  }
+
   &:hover {
     background: primary(2);
 

@@ -19,15 +19,15 @@ class PollResultsMember extends View {
 </li>
     `)
 
-    this.$import(result, ["id", "gauge", "grade", "completion"])
+    this.$import(result, ["id", "gauge", "grade", "gradeIndex", "completion"])
   }
 }
 
 /* Computations */
 const proto = PollResultsMember.prototype
 
-proto.$define("gaugeMeter", ["gauge"], function () {
-  return gaugeMeter({ gauge: this.gauge })
+proto.$define("gaugeMeter", ["gauge", "gradeIndex"], function () {
+  return gaugeMeter({ gauge: this.gauge, gradeIndex: this.gradeIndex })
 })
 
 proto.$define("percentage", ["completion"], function () {

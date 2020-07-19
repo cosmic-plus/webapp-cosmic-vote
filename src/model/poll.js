@@ -70,6 +70,7 @@ class Poll extends LiveObject {
     results.forEach(member => {
       member.gauge = countsToGauge(member.counts)
       const metrics = gaugeMetrics(member.gauge)
+      member.gradeIndex = metrics.median
       member.grade = this.grades[metrics.median]
       member.completion = metrics.completion
       member.ranking = metricsRanking(metrics)

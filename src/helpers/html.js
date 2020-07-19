@@ -13,12 +13,19 @@ my.stringToHtml = function (string) {
   return tmp.childNodes[0]
 }
 
-my.gaugeMeter = function ({ gauge, names, colors = my.gaugeMeter.colors }) {
+my.gaugeMeter = function ({
+  gauge,
+  gradeIndex,
+  names,
+  colors = my.gaugeMeter.colors
+}) {
   const spans = gauge.map((ratio, index) => {
     const width = `${nice(ratio * 100)}%`
     const background = colors[index]
     const textContent = names ? names[index] : width
-    return my.colorSpan({ width, background, textContent })
+    const colorSpan = my.colorSpan({ width, background, textContent })
+    if (index === gradeIndex) colorSpan.className = "selected"
+    return colorSpan
   })
   return html("div", { className: "Gauge" }, spans)
 }
