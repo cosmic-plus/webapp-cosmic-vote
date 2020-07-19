@@ -76,6 +76,7 @@ class VoteTab extends View {
 
     /* Defaults */
     this.txHash = null
+    this.ballot = null
     this.waitingForVote = false
     this.txHandler = "https://test.cosmic.link"
 
@@ -91,6 +92,11 @@ class VoteTab extends View {
     const vote = this.voteForm.vote
     const txParams = this.poll.voteToTxParams(vote)
 
+    const timestamp = new Date()
+    timestamp.setMinutes(timestamp.getMinutes() + 3)
+    const timecheck = timestamp.toISOString().replace(/\.[0-9]{3}/, "")
+    txParams.maxTime = timecheck
+
     const txQuery = txParams.to("query")
     const txRequest = `${this.txHandler}/${txQuery}`
     const frame = new SideFrame(txRequest)
@@ -101,7 +107,7 @@ class VoteTab extends View {
     frameClosed.then(() => this.waitingForVote = true)
 
     try {
-      await this.poll.waitForVote(vote, 90)
+      this.ballot = await this.poll.waitForBallot({ vote, timecheck })
       await frameClosed
       this.poll.computeResults()
       this.app.selectedTabId = "results"

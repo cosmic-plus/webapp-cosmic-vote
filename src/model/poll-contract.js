@@ -157,8 +157,8 @@ class PollContract extends Poll {
     }
   }
 
-  async waitForVote (choice, maxTime = 30) {
-    const expected = JSON.stringify(choice)
+  async waitForBallot ({ vote, timecheck, maxTime = 90 }) {
+    const expected = JSON.stringify(vote)
 
     const promise = new Promise((resolve, reject) => {
       timeout(maxTime * 1000).then(() => {
@@ -166,11 +166,12 @@ class PollContract extends Poll {
         reject(new Error("The vote haven't been validated"))
       })
 
-      const callback = ([vote]) => {
-        const returned = JSON.stringify(vote.choice)
+      const callback = ([ballot]) => {
+        if (ballot.timecheck !== timecheck) return
+        const returned = JSON.stringify(ballot.choice)
         if (returned !== expected) return
         cleanup()
-        resolve()
+        resolve(ballot)
       }
 
       const cleanup = () => this.votes.$off("$add", callback)
@@ -213,7 +214,8 @@ class PollContract extends Poll {
     if (choice.some(x => x < 0 || x > 5 || !isInteger(x))) return
 
     const id = txRecord.source_account
-    this.pushVote({ id, choice })
+    const timecheck = txParams.maxTime
+    this.pushVote({ id, choice, timecheck })
   }
 }
 
