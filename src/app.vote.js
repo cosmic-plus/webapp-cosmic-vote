@@ -35,7 +35,7 @@ class VoteTab extends View {
 
   %voteForm
 
-  <form class="Controls">
+  <form class="Controls" hidden=%not:title>
     <input type="button" value="Cast Your Vote!" onclick=%postVote
       hidden=%has:waitingForVote>
     <div hidden=%not:waitingForVote>
