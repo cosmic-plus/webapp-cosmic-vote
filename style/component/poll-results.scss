@@ -4,6 +4,7 @@
 
 .PollResults {
   counter-reset: results;
+  min-height: 4em;
 
   footer {
     display: flex;
