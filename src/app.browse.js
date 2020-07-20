@@ -6,7 +6,7 @@ const { View } = require("@kisbox/browser")
 
 const Parameters = require("./lib/parameters")
 const PollsTable = require("./view/polls-table")
-const ShareButton = require("./view/share-button")
+const ShareLink = require("./view/share-link")
 
 /* Definition */
 
@@ -14,7 +14,7 @@ class BrowseTab extends View {
   constructor (app) {
     super(`
 <section class="Widget">
-  %shareButton
+  %shareLink
 
   <h2>Browse Polls</h2>
   <hr>
@@ -38,7 +38,7 @@ class BrowseTab extends View {
     this.app = app
 
     /* Components */
-    this.shareButton = new ShareButton({ title: "Browse Polls" })
+    this.shareLink = new ShareLink({ title: "Browse Polls" })
     this.pollsTable = new PollsTable(app)
     this.$import(this.pollsTable, ["networkId", "pollsInbox"])
 

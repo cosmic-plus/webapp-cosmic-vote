@@ -6,7 +6,7 @@ const { View } = require("@kisbox/browser")
 
 const PollContract = require("./model/poll-contract")
 const PollEditor = require("./view/poll-editor")
-const ShareButton = require("./view/share-button")
+const ShareLink = require("./view/share-link")
 
 const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
 
@@ -16,7 +16,7 @@ class NewPollTab extends View {
   constructor (app) {
     super(`
 <section class="Widget">
-  %shareButton
+  %shareLink
 
   <h2>New Poll</h2>
   <hr>
@@ -62,7 +62,7 @@ class NewPollTab extends View {
     this.$import(app, ["network"])
 
     /* Components */
-    this.shareButton = new ShareButton(this)
+    this.shareLink = new ShareLink(this)
     this.pollEditor = new PollEditor(this)
     this.pollEditor.members.push("Foo")
     this.pollEditor.members.push("Bar")

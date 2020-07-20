@@ -1,6 +1,6 @@
 "use strict"
 /**
- * ShareButton
+ * ShareLink
  * */
 const { View, html } = require("@kisbox/browser")
 const { timeout } = require("@kisbox/helpers")
@@ -11,10 +11,10 @@ const shareIcon = require("feather-icons/dist/icons/share-2.svg")
 
 /* Definition */
 
-class ShareButton extends View {
+class ShareLink extends View {
   constructor (params) {
     super(`
-<div class="ShareButton">
+<div class="ShareLink">
   <span class=%state>Link copied!</span>
   <a %onclick>%shareSvg</a>
 </div>
@@ -47,4 +47,4 @@ class ShareButton extends View {
 }
 
 /* Export */
-module.exports = ShareButton
+module.exports = ShareLink

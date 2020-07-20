@@ -9,7 +9,7 @@ const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
 const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
 const PollVoteForm = require("./view/poll-vote-form")
-const ShareButton = require("./view/share-button")
+const ShareLink = require("./view/share-link")
 
 /* Definition */
 
@@ -17,7 +17,7 @@ class VoteTab extends View {
   constructor (app) {
     super(`
 <section class="Widget">
-  %shareButton
+  %shareLink
 
   <h2 hidden=%not:syncing>Reading Contract...</h2>
   <h2 hidden=%has:syncing>%sectionTitle</h2>
@@ -92,7 +92,7 @@ class VoteTab extends View {
     ])
 
     /* Components */
-    this.shareButton = new ShareButton(this)
+    this.shareLink = new ShareLink(this)
   }
 
   async postVote () {
