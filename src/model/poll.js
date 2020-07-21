@@ -84,6 +84,26 @@ class Poll extends LiveObject {
   }
 }
 
+/* Computations */
+const proto = Poll.prototype
+
+proto.$define("localBallots", ["localVoters", "votes"], function () {
+  const localBallots = new CrudArray()
+
+  this.votes.$forEach(ballot => {
+    if (this.localVoters.includes(ballot.id)) {
+      localBallots.put(ballot)
+    }
+  })
+  localBallots.$listen(this.localVoters, "$add", voter => {
+    this.votes.forEach(ballot => {
+      if (ballot.id === voter) localBallots.put(ballot)
+    })
+  })
+
+  return localBallots
+})
+
 /* Utilities */
 function byRanking (x1, x2) {
   for (let i in x1.ranking) {
