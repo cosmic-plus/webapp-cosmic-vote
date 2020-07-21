@@ -14,7 +14,10 @@ class PollVoteForm extends View {
 </ul>
     `)
 
+    /* Defaults */
     this.members = []
+
+    /* Imports */
     this.$import(poll, ["members"])
 
     // Entries events
@@ -24,13 +27,24 @@ class PollVoteForm extends View {
       })
     })
   }
+
+  resetVote () {
+    this.vote = new Array(this.members.length).fill(2)
+  }
 }
 
 /* Computations */
 const proto = PollVoteForm.prototype
 
-proto.$define("vote", ["members"], function () {
-  return new Array(this.members.length).fill(2)
+proto.$on("members", function () {
+  this.resetVote()
+})
+
+proto.$on("vote", function (vote) {
+  if (!this.entries) return
+  this.entries.forEach((entry, index) => {
+    entry.value = vote ? vote[index] : 2
+  })
 })
 
 proto.$define("entries", ["members"], function () {

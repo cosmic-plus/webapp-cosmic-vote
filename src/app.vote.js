@@ -8,6 +8,7 @@ const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
 
 const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
+const BallotSelector = require("./view/ballots-selector")
 const PollVoteForm = require("./view/poll-vote-form")
 const ShareLink = require("./view/share-link")
 
@@ -26,17 +27,18 @@ class VoteTab extends View {
   <nav hidden=%not:syncing>
     <span class="Spinner"></span>
     <span>Please wait...</span>
-  </nav>
+ </nav>
   <nav hidden=%has:syncing>
     <a onclick=%openTransaction hidden=%not:txHash>View contract</a>
     <a onclick=%openState hidden=%not:txHash>View state</a>
     <a onclick=%showResultsTab>See results</a>
+    %ballotSelector
   </nav>
 
   %voteForm
 
   <form class="Controls" hidden=%not:title>
-    <input type="button" value="Cast Your Vote!" onclick=%postVote
+    <input type="button" value=%buttonText onclick=%postVote
       hidden=%has:waitingForVote>
     <div hidden=%not:waitingForVote>
       <button type="button" disabled>
@@ -77,6 +79,7 @@ class VoteTab extends View {
     /* Defaults */
     this.txHash = null
     this.ballot = null
+    this.userBallots = []
     this.waitingForVote = false
     this.txHandler = "https://test.cosmic.link"
 
@@ -93,11 +96,14 @@ class VoteTab extends View {
 
     /* Components */
     this.shareLink = new ShareLink(this)
+    this.ballotSelector = new BallotSelector(this)
+    this.$import(this.ballotSelector, ["ballot"])
   }
 
   async postVote () {
     const vote = this.voteForm.vote
     const txParams = this.poll.voteToTxParams(vote)
+    if (this.ballot) txParams.source = this.ballot.id
 
     const timestamp = new Date()
     timestamp.setMinutes(timestamp.getMinutes() + 3)
@@ -114,9 +120,10 @@ class VoteTab extends View {
     frameClosed.then(() => this.waitingForVote = true)
 
     try {
-      this.ballot = await this.poll.waitForBallot({ vote, timecheck })
-      this.userPubkeys.put(this.ballot.id)
+      const ballot = await this.poll.waitForBallot({ vote, timecheck })
       await frameClosed
+      this.userPubkeys.put(ballot.id)
+      this.ballot = ballot
       this.poll.computeResults()
       this.app.selectedTabId = "results"
     } catch (error) {
@@ -167,6 +174,29 @@ proto.$define("query", ["txHash", "network"], function () {
     txHash: this.txHash,
     network: this.network.id
   })
+})
+
+proto.$define("buttonText", ["ballot"], function () {
+  if (this.ballot) return "Edit Your Vote"
+  else return "Cast Your Vote!"
+})
+
+proto.$on("poll", function () {
+  this.poll.localVoters = this.userPubkeys
+  this.userBallots = this.poll.localBallots || []
+
+  if (this.userBallots.length > 0) {
+    this.ballot = this.userBallots[0]
+  }
+})
+
+proto.$on("ballot", function () {
+  if (!this.voteForm) return
+  if (this.ballot) {
+    this.voteForm.vote = this.ballot.choice
+  } else {
+    this.voteForm.resetVote()
+  }
 })
 
 /* Export */
