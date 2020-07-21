@@ -36,5 +36,5 @@ app.$mount()
 console.log("Application:", app)
 
 // Address syncing
-app.$on("route", () => history.replaceState(null, null, app.route))
+app.$on("route", () => history.replaceState(null, null, `/${app.route}`))
 app.$trigger("route")
