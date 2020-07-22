@@ -54,5 +54,10 @@ NetworkContext.list.put({
   horizon: "https://horizon-testnet.stellar.org"
 })
 
+/* Utilities */
+NetworkContext.resolveAddress = function (address) {
+  return StellarSdk.FederationServer.resolve(address)
+}
+
 /* Export */
 module.exports = NetworkContext

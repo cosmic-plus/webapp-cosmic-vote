@@ -28,13 +28,13 @@ class PollsTableControls extends View {
 </form>
     `)
 
-    this.$import(pollsTable, ["networkId", "pollsInbox", "syncing"])
+    this.$import(pollsTable, ["networkId", "pollsInbox", "messages", "syncing"])
   }
 
   openInbox () {
     const networkEndpoint = this.networkId === "public" ? "public" : "testnet"
     const handler = `https://stellar.expert/explorer/${networkEndpoint}/account`
-    const url = `${handler}/${this.pollsInbox}`
+    const url = `${handler}/${this.messages.pubkey}`
     open(url, null, "noreferrer")
   }
 }

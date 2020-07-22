@@ -69,7 +69,7 @@ class CosmicVote extends Application {
     this.txHash =
       "4863f317de223e1cc7b84c82e9cc93a92a6c0f5db462a63be8bdb1fdfb442909"
     this.network = "test"
-    this.pollsInbox = "GCJSNTA62DOJ4GDMJRUCADFJEBQCRWD2VGRQXZG7KTXKYHTIZ3FJB5NJ"
+    this.pollsInbox = "list*cosmic.vote"
 
     /* Imports */
     this.$pick(params, ["network", "txHash"])

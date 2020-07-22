@@ -81,10 +81,11 @@ proto.$on("network", function (network) {
 
 /* Utilities */
 
-OcMessage.listMessages = async function (pubkey, network) {
+OcMessage.listMessages = async function (address, network) {
+  const federated = await NetworkContext.resolveAddress(address)
   const mailbox = {
     network,
-    pubkey,
+    pubkey: federated.account_id,
     inbox: new LiveArray(),
     outbox: new LiveArray(),
     cursor: null
