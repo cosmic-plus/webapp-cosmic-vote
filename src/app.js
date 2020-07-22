@@ -72,7 +72,7 @@ class CosmicVote extends Application {
     this.pollsInbox = "list*cosmic.vote"
 
     /* Imports */
-    this.$pick(params, ["network", "txHash"])
+    this.$pick(params, ["network", "txHash", "pollsInbox"])
     this.userPubkeys = new Pubkeys()
     this.userPubkeys.$store("userPubkeys")
 
