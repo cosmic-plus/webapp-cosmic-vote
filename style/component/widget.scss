@@ -17,5 +17,15 @@
     & > *:not(:first-child) {
       margin-left: 1.6em;
     }
+
+    a {
+      vertical-align: bottom;
+    }
+
+    svg {
+      height: 1em;
+      width: auto;
+      margin: 0.2em 0;
+    }
   }
 }

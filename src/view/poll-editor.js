@@ -7,6 +7,9 @@ const { LiveArray } = require("@kisbox/model")
 
 const { remove } = require("@cosmic-plus/helpers")
 
+const chevronRightSvg = require("feather-icons/dist/icons/chevron-right.svg")
+const chevronDownSvg = require("feather-icons/dist/icons/chevron-down.svg")
+
 /* Definition */
 
 class PollEditor extends View {
@@ -58,10 +61,10 @@ class PollEditor extends View {
   </fieldset>
 
   <nav>
-    <a onclick=%switchAdvancedSettings>
-      <span hidden=%showAdvancedSettings>⮞</span>
-      <span hidden=%not:showAdvancedSettings>⮟</span>
-      &nbsp;Advanced Settings
+    <a onclick=%switchAdvancedSettings data-switcher=%showAdvancedSettings>
+      <span hidden=%showAdvancedSettings>${chevronRightSvg}</span>
+      <span hidden=%not:showAdvancedSettings>${chevronDownSvg}</span>
+      Advanced Settings
     </a>
   </nav>
 
