@@ -39,7 +39,7 @@ class VoteTab extends View {
 
   <form class="Controls" hidden=%not:title>
     <input type="button" value=%buttonText onclick=%postVote
-      hidden=%has:waitingForVote>
+      hidden=%has:waitingForVote disabled=%isClosed>
     <div hidden=%not:waitingForVote>
       <button type="button" disabled>
         <span class="Spinner"></span>
@@ -91,7 +91,8 @@ class VoteTab extends View {
       "syncing",
       "title",
       "network",
-      "userPubkeys"
+      "userPubkeys",
+      "isClosed"
     ])
 
     /* Components */
@@ -176,9 +177,14 @@ proto.$define("query", ["txHash", "network"], function () {
   })
 })
 
-proto.$define("buttonText", ["ballot"], function () {
-  if (this.ballot) return "Edit Your Vote"
-  else return "Cast Your Vote!"
+proto.$define("buttonText", ["ballot", "isClosed"], function () {
+  if (this.isClosed) {
+    return "Poll closed"
+  } else if (this.ballot) {
+    return "Edit Your Vote"
+  } else {
+    return "Cast Your Vote!"
+  }
 })
 
 proto.$on("poll", function () {
