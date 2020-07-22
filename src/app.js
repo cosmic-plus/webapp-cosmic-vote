@@ -119,7 +119,14 @@ proto.$on("poll", function (currentPoll, previousPoll) {
     previousPoll.stopVoteStream()
     this.$ignore(previousPoll)
   }
-  this.$import(currentPoll, ["txHash", "syncing", "network", "title", "record"])
+  this.$import(currentPoll, [
+    "txHash",
+    "syncing",
+    "network",
+    "title",
+    "record",
+    "isClosed"
+  ])
   if (currentPoll.txHash) currentPoll.streamVotes()
 })
 

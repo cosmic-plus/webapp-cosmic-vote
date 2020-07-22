@@ -225,6 +225,21 @@ class PollContract extends Poll {
 /* Composition */
 hide(PollContract.prototype, "toCosmicLink", OcMessage.prototype.toCosmicLink)
 
+/* Computations */
+const proto = PollContract.prototype
+
+proto.$define("isClosed", ["maxTime"], function () {
+  if (!this.maxTime) return false
+
+  const timeDiff = this.maxTime - Date.now()
+  if (timeDiff > 0) {
+    timeout(timeDiff).then(() => this.isClosed = true)
+    return false
+  } else {
+    return true
+  }
+})
+
 /* Helpers */
 
 function isInteger (value) {
