@@ -67,8 +67,9 @@ class PollEditor extends View {
 
   <div hidden=%not:showAdvancedSettings>
     <fieldset>
-      <legend $hint="The date & time at which your poll will end. (optional)">
-        Closing Time
+      <legend $hint="The local date & time at which your poll will end.
+        (optional)">
+          Closing Time
       </legend>
       <div class="group">
         <input type="date" value=%closingDate>
