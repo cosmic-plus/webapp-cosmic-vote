@@ -91,6 +91,9 @@ class PollContract extends Poll {
     if (this.members.length === 0) {
       throw new Error("One candidate is required")
     }
+    if (this.isClosed) {
+      throw new Error("The closing date is in the past")
+    }
   }
 
   async waitValidation (maxTime = 30) {
