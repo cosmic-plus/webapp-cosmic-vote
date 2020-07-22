@@ -10,6 +10,7 @@ const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
 const Parameters = require("./lib/parameters")
 const NetworkContext = require("./model/network-context")
 const BallotSelector = require("./view/ballots-selector")
+const PollConditionsList = require("./view/poll-conditions-list")
 const PollVoteForm = require("./view/poll-vote-form")
 const ShareLink = require("./view/share-link")
 
@@ -49,6 +50,8 @@ class VoteTab extends View {
       <br>
       <a onclick=%cancelSyncing>Cancel</a>
     </div>
+
+    %pollConditions
   </form>
 
   <aside>
@@ -179,14 +182,26 @@ proto.$define("query", ["txHash", "network"], function () {
   })
 })
 
+proto.$define("disableVoting", ["isClosed", "noEdit", "ballot"], function () {
+  return this.isClosed || this.ballot && this.noEdit
+})
+
 proto.$define("buttonText", ["ballot", "isClosed"], function () {
   if (this.isClosed) {
     return "Poll closed"
   } else if (this.ballot) {
-    return "Edit Your Vote"
+    if (this.noEdit) {
+      return "Edit is forbidden"
+    } else {
+      return "Edit Your Vote"
+    }
   } else {
     return "Cast Your Vote!"
   }
+})
+
+proto.$define("pollConditions", ["poll"], function () {
+  return new PollConditionsList(this.poll)
 })
 
 proto.$on("poll", function () {

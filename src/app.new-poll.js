@@ -92,6 +92,7 @@ class NewPollTab extends View {
       await frameClosed
 
       this.app.poll = this.poll
+      this.app.poll.network = this.network
       this.app.selectedTabId = "vote"
     } catch (error) {
       if (error === null) return
