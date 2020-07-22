@@ -41,7 +41,7 @@ class VoteTab extends View {
 
   <form class="Controls" hidden=%not:title>
     <input type="button" value=%buttonText onclick=%postVote
-      hidden=%has:waitingForVote disabled=%isClosed>
+      hidden=%has:waitingForVote disabled=%disableVoting>
     <div hidden=%not:waitingForVote>
       <button type="button" disabled>
         <span class="Spinner"></span>
@@ -96,7 +96,8 @@ class VoteTab extends View {
       "title",
       "network",
       "userPubkeys",
-      "isClosed"
+      "isClosed",
+      "noEdit"
     ])
 
     /* Components */

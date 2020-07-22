@@ -54,9 +54,17 @@ class PollContract extends Poll {
     this.record = null
     this.syncing = null
     this.maxTime = null
+    this.noEdit = false
 
     /* Imports */
-    this.$import(params, ["network", "type", "state", "destination", "maxTime"])
+    this.$import(params, [
+      "network",
+      "type",
+      "state",
+      "destination",
+      "maxTime",
+      "noEdit"
+    ])
   }
 
   toPassiveContract () {
@@ -70,7 +78,8 @@ class PollContract extends Poll {
       params: deleteNullish({
         title: this.title,
         members: this.members,
-        maxTime: this.maxTime
+        maxTime: this.maxTime,
+        noEdit: !!this.noEdit || null
       })
     })
 
@@ -217,6 +226,10 @@ class PollContract extends Poll {
     if (choice.some(x => x < 0 || x > 5 || !isInteger(x))) return
 
     const id = txRecord.source_account
+    if (this.noEdit && this.votes.get(id)) {
+      return
+    }
+
     const timecheck = txParams.maxTime
     this.pushVote({ id, choice, timecheck })
   }

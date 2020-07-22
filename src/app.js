@@ -125,7 +125,8 @@ proto.$on("poll", function (currentPoll, previousPoll) {
     "network",
     "title",
     "record",
-    "isClosed"
+    "isClosed",
+    "noEdit"
   ])
   if (currentPoll.txHash) currentPoll.streamVotes()
 })

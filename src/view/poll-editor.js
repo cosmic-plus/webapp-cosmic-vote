@@ -76,6 +76,17 @@ class PollEditor extends View {
         <input type="time" value=%closingTime>
       </div>
     </fieldset>
+
+    <fieldset>
+      <legend $hint="Allow users to edit their vote while the poll is still open.">
+        Vote Editing
+      </legend>
+      <input type="radio" $group="noEdit" value=""
+        $label="Allow Edits">
+      <input type="radio" $group="noEdit" value="true"
+       $label="Forbid Edits">
+    </fieldset>
+
   </div>
 
 </form>
@@ -85,6 +96,7 @@ class PollEditor extends View {
     this.members = new LiveArray()
     this.closingTime = "00:00"
     this.showAdvancedSettings = false
+    this.noEdit = ""
 
     /* Imports */
     this.$import(params, ["members", "title", "destination"])

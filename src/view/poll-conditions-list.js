@@ -14,29 +14,36 @@ class PollConditionsList extends View {
 </li>
     `)
 
-    this.$import(poll, ["network", "maxTime", "isClosed"])
+    this.$import(poll, ["network", "maxTime", "isClosed", "noEdit"])
   }
 }
 
 /* Computations */
 const proto = PollConditionsList.prototype
 
-proto.$define("conditions", ["network", "maxTime", "isClosed"], function () {
-  const conditions = []
-  if (this.network) {
-    conditions.push(`Network: Stellar ${this.network.id}`)
-  }
-  if (this.maxTime) {
-    const date = new Date(this.maxTime)
-    const dateString = date.toLocaleString()
-    if (this.isClosed) {
-      conditions.push(`Closed the ${dateString}`)
-    } else {
-      conditions.push(`Closes the ${dateString}`)
+proto.$define(
+  "conditions",
+  ["network", "maxTime", "isClosed", "noEdit"],
+  function () {
+    const conditions = []
+    if (this.network) {
+      conditions.push(`Network: Stellar ${this.network.id}`)
     }
+    if (this.maxTime) {
+      const date = new Date(this.maxTime)
+      const dateString = date.toLocaleString()
+      if (this.isClosed) {
+        conditions.push(`Closed the ${dateString}`)
+      } else {
+        conditions.push(`Closes the ${dateString}`)
+      }
+    }
+    if (this.noEdit) {
+      conditions.push(`No vote editing`)
+    }
+    return conditions
   }
-  return conditions
-})
+)
 
 /* Helpers */
 const helpers = PollConditionsList.helpers
