@@ -3,6 +3,7 @@
  * CosmicVote.VoteTab
  */
 const { View } = require("@kisbox/browser")
+const { noError } = require("@kisbox/helpers")
 
 const SideFrame = require("cosmic-lib/es5/helpers/side-frame")
 
@@ -122,6 +123,7 @@ class VoteTab extends View {
 
     try {
       const ballot = await this.poll.waitForBallot({ vote, timecheck })
+      noError(() => frame.close())
       await frameClosed
       this.userPubkeys.put(ballot.id)
       this.ballot = ballot

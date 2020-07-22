@@ -3,6 +3,7 @@
  * CosmicVote.NewPollTab
  */
 const { View } = require("@kisbox/browser")
+const { noError } = require("@kisbox/helpers")
 
 const PollContract = require("./model/poll-contract")
 const PollEditor = require("./view/poll-editor")
@@ -82,20 +83,20 @@ class NewPollTab extends View {
       const frameClosed = new Promise(resolve => {
         frame.listen("destroy", resolve)
       })
-      await frameClosed
-      this.syncing = true
-    } catch (error) {
-      console.error(error)
-      this.error = error
-      return
-    }
+      frameClosed.then(() => this.syncing = true)
 
-    try {
-      await this.poll.waitValidation(60)
+      await this.poll.waitValidation(180).catch(() => {
+        throw null
+      })
+      noError(() => frame.close())
+      await frameClosed
+
       this.app.poll = this.poll
       this.app.selectedTabId = "vote"
     } catch (error) {
+      if (error === null) return
       console.error(error)
+      this.error = error
     }
 
     this.syncing = false
