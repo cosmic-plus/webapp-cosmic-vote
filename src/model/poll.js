@@ -4,9 +4,11 @@
  */
 
 const { LiveObject } = require("@kisbox/model")
-const CrudArray = require("../lib/crud-array")
+const { call } = require("@kisbox/helpers")
 
 const { sum } = require("@cosmic-plus/helpers")
+
+const CrudArray = require("../lib/crud-array")
 
 /* Defaults */
 const grades = [
@@ -50,6 +52,8 @@ class Poll extends LiveObject {
   }
 
   computeResults () {
+    call(Array).sort(this.votes, (a, b) => a.date - b.date)
+
     // List members
     const results = this.members.map(id => {
       return {

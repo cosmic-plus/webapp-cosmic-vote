@@ -6,6 +6,7 @@ const loopcall = require("@cosmic-plus/loopcall")
 const TxParams = require("@cosmic-plus/tx-params")
 const { hide, timeout } = require("@kisbox/helpers")
 
+const AccountHistory = require("./account-history")
 const Poll = require("./poll")
 const PassiveContract = require("./passive-contract")
 const NetworkContext = require("./network-context")
@@ -53,8 +54,10 @@ class PollContract extends Poll {
     this.network = "test"
     this.record = null
     this.syncing = null
+    this.syncingVotes = 0
     this.maxTime = null
     this.noEdit = false
+    this.voterHodl = null
 
     /* Imports */
     this.$import(params, [
@@ -63,7 +66,8 @@ class PollContract extends Poll {
       "state",
       "destination",
       "maxTime",
-      "noEdit"
+      "noEdit",
+      "voterHodl"
     ])
   }
 
@@ -79,7 +83,8 @@ class PollContract extends Poll {
         title: this.title,
         members: this.members,
         maxTime: this.maxTime,
-        noEdit: !!this.noEdit || null
+        noEdit: !!this.noEdit || null,
+        voterHodl: deleteNullish(this.voterHodl)
       })
     })
 
@@ -145,7 +150,12 @@ class PollContract extends Poll {
     this.syncing = true
 
     await loopcall(callBuilder, {
-      filter: paymentRecord => this.ingestPaymentRecord(paymentRecord)
+      filter: paymentRecord => {
+        this.syncingVotes++
+        this.ingestPaymentRecord(paymentRecord).finally(
+          () => this.syncingVotes--
+        )
+      }
     })
 
     this.computeResults()
@@ -229,9 +239,18 @@ class PollContract extends Poll {
     if (this.noEdit && this.votes.get(id)) {
       return
     }
+    if (this.voterHodl) {
+      const accountHistory = new AccountHistory({
+        address: id,
+        network: this.network
+      })
+      const hasHodled = await accountHistory.hasHodled(this.voterHodl)
+      if (!hasHodled) return
+    }
 
+    const date = new Date(txRecord.created_at)
     const timecheck = txParams.maxTime
-    this.pushVote({ id, choice, timecheck })
+    this.pushVote({ id, choice, date, timecheck })
   }
 }
 

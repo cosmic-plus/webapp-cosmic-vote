@@ -25,12 +25,12 @@ class AccountHistory extends LiveObject {
   async hasHodled ({
     assetId = "native",
     amount = 0,
-    since = new Date(),
-    from = since
+    to = new Date(),
+    since = to
   }) {
     let returned = true
-    await this.getPastState(from, pastState => {
-      if (pastState.date > since) return
+    await this.getPastState(since, pastState => {
+      if (pastState.date > to) return
       const hodled = pastState.balances[assetId]
       if (!hodled || hodled < amount) {
         returned = false
