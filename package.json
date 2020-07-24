@@ -66,7 +66,7 @@
     "@cosmic-plus/assets": "^1.6.0",
     "@cosmic-plus/base": "^2.8.0",
     "@cosmic-plus/helpers": "^1.0.1",
-    "@cosmic-plus/loopcall": "^1.4.1",
+    "@cosmic-plus/loopcall": "1.5.0",
     "@cosmic-plus/tx-params": "^1.0.0-beta.6",
     "@cosmic-plus/utils": "^1.0.0",
     "@fortawesome/fontawesome-free": "^5.14.0",
