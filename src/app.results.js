@@ -62,6 +62,12 @@ class ResultsTab extends View {
     adding or removing a candidate will change other candidates' scores (and,
     more often than not, the whole ranking in disturbing ways).</p>
 
+    <p><a target="_blank" rel="noopener"
+        title="(Medium) Cosmic.vote #1: Introducing Majority Judgment"
+        href="https://medium.com/cosmic-plus/cosmic-vote-1-introducing-majority-judgment-84a250380695?source=collection_home---4------0-----------------------">
+      Read more about Majority Judgement
+    <a></p>
+
   </aside>
 
 </section>

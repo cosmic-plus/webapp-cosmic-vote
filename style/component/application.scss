@@ -32,4 +32,9 @@ $footer-height: 3rem;
     width: 100%;
     height: $footer-height;
   }
+
+  aside p a {
+    display: block;
+    text-align: center;
+  }
 }

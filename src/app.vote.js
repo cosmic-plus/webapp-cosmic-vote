@@ -75,6 +75,12 @@ class VoteTab extends View {
     suitable either because explicit consent has not been given. This is
     equivalent to a blank vote.</p>
 
+    <p><a target="_blank" rel="noopener"
+        title="(Medium) Cosmic.vote #1: Introducing Majority Judgment"
+        href="https://medium.com/cosmic-plus/cosmic-vote-1-introducing-majority-judgment-84a250380695?source=collection_home---4------0-----------------------">
+      Read more about Majority Judgement
+    <a></p>
+
   </aside>
 
 </section>
