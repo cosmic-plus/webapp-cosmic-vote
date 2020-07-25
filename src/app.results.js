@@ -22,8 +22,10 @@ class ResultsTab extends View {
   <hr>
 
   <nav hidden=%not:syncing>
-    <span class="Spinner"></span>
-    <span>Please wait...</span>
+    <span>
+      <span class="Spinner"></span>
+      Please wait...
+    </span>
   </nav>
   <nav hidden=%has:syncing>
     <a onclick=%openTransaction hidden=%not:txHash>View contract</a>
