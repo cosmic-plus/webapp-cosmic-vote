@@ -108,6 +108,20 @@ class PollContract extends Poll {
     if (this.isClosed) {
       throw new Error("The closing date is in the past")
     }
+    if (this.voterHodl) {
+      if (!this.voterHodl.assetId) {
+        throw new Error("Missing hold asset ID")
+      }
+      if (
+        this.voterHodl.assetId !== "native"
+        && !this.voterHodl.assetId.match(/^\w{1,14}:G[A-Z0-9]{55}$/)
+      ) {
+        throw new Error("Invalid asset ID")
+      }
+      if (this.voterHodl.since && new Date(this.voterHodl.since) > new Date()) {
+        throw new Error("'Hold Since' can't be in the future")
+      }
+    }
   }
 
   async waitValidation (maxTime = 30) {

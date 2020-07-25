@@ -20,7 +20,13 @@ class PollResults extends View {
   <footer hidden=%has:syncing>
     <span>%timeSinceOpen</span>
     <span>%timeBeforeClose</span>
-    <span>Number of votes: %{length}</span>
+    <span>
+      <span hidden=%syncingVotes>Number of votes: %{length}</span>
+      <span hidden=%not:syncingVotes>
+        <span class="Spinner"></span>
+        Reading votes... (%{length})
+      </span>
+    </span>
   </footer>
 </div>
     `)
@@ -31,6 +37,7 @@ class PollResults extends View {
       "votes",
       "record",
       "syncing",
+      "syncingVotes",
       "maxTime",
       "isClosed"
     ])

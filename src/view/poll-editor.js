@@ -61,12 +61,40 @@ class PollEditor extends View {
   </fieldset>
 
   <nav>
+    <a onclick=%switchVotersFiltering data-switcher=%showVotersFiltering>
+      <span hidden=%showVotersFiltering>${chevronRightSvg}</span>
+      <span hidden=%not:showVotersFiltering>${chevronDownSvg}</span>
+      Voters Filtering
+    </a>
     <a onclick=%switchAdvancedSettings data-switcher=%showAdvancedSettings>
       <span hidden=%showAdvancedSettings>${chevronRightSvg}</span>
       <span hidden=%not:showAdvancedSettings>${chevronDownSvg}</span>
       Advanced Settings
     </a>
   </nav>
+
+  <div hidden=%not:showVotersFiltering>
+    <fieldset>
+      <legend $hint="Set how much of an asset voters have to hold at vote creation time, for their vote to count. Set the amount to 0 to filter by trustline. (Optional)">
+        Hold Asset
+      </legend>
+      <div class="group">
+        <input type="number" value=%hodlAmount step="0.0000001" min="0"
+          placeHolder="Asset amount">
+        <input type="text" value=%hodlAsset
+          placeHolder="Asset ID (code:issuer)">
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend $hint="Set a date from which the 'Hold Asset' requirement has to be valid. (Optional)">
+        Hold Since
+      </legend>
+      <div class="group">
+        <input type="date" value=%hodlDate>
+        <input type="time" value=%hodlTime>
+      </div>
+    </fieldset>
+  </div>
 
   <div hidden=%not:showAdvancedSettings>
     <fieldset>
@@ -92,12 +120,19 @@ class PollEditor extends View {
 
   </div>
 
+
 </form>
     `)
 
     /* Defaults */
     this.members = new LiveArray()
     this.closingTime = "00:00"
+    this.showVotersFiltering = false
+    this.voterHodl = null
+    this.hodlAsset = "native"
+    this.hodlAmount = 0
+    this.hodlDate = null
+    this.hodlTime = "00:00"
     this.showAdvancedSettings = false
     this.noEdit = ""
 
@@ -106,7 +141,13 @@ class PollEditor extends View {
     this.$import(params, ["network"], x => x.id)
   }
 
+  switchVotersFiltering () {
+    this.showAdvancedSettings = false
+    this.showVotersFiltering = !this.showVotersFiltering
+  }
+
   switchAdvancedSettings () {
+    this.showVotersFiltering = false
     this.showAdvancedSettings = !this.showAdvancedSettings
   }
 
@@ -130,6 +171,40 @@ class PollEditor extends View {
 
 /* Computations */
 const proto = PollEditor.prototype
+
+proto.$define(
+  "voterHodl",
+  ["hodlAsset", "hodlAmount", "hodlSince"],
+  function () {
+    if (
+      (!this.hodlAsset || this.hodlAsset === "native")
+      && !this.hodlAmount
+      && !this.hodlSince
+    ) {
+      return null
+    } else {
+      return {
+        assetId: this.hodlAsset,
+        amount: this.hodlAmount,
+        since: this.hodlSince
+      }
+    }
+  }
+)
+
+proto.$define("hodlSince", ["hodlDate", "hodlTime"], function () {
+  if (!this.hodlDate || !this.hodlTime) return null
+
+  const isoDate = `${this.hodlDate}T${this.hodlTime}`
+  const timestamp = Number(new Date(isoDate))
+  return timestamp
+})
+
+proto.$on("hodlAmount", function () {
+  this.hodlAmount = Number(this.hodlAmount)
+    .toFixed(7)
+    .replace(/\.?0+$/, "")
+})
 
 proto.$define("maxTime", ["closingDate", "closingTime"], function () {
   if (!this.closingDate || !this.closingTime) return

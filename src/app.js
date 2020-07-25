@@ -122,6 +122,7 @@ proto.$on("poll", function (currentPoll, previousPoll) {
   this.$import(currentPoll, [
     "txHash",
     "syncing",
+    "syncingVotes",
     "network",
     "title",
     "record",
