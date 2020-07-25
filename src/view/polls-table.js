@@ -18,7 +18,7 @@ class PollsTable extends View {
   <thead>
     <th>Date</th>
     <th>Title</th>
-    <th>Votes</th>
+    <th>Expiration</th>
   </thead>
 
   <tbody>
@@ -60,22 +60,12 @@ proto.$define("polls", ["messages"], function () {
     .filter(message => message.object.match(/^~majority-judgment@/))
     .map(contract => {
       const poll = PollContract.fromPassiveContract(contract)
-      poll.getVotes()
       return poll
     })
 })
 
 proto.$define("messages", ["pollsInbox", "networkId"], async function () {
   return await PassiveContract.listMessages(this.pollsInbox, this.networkId)
-})
-
-proto.$on("messages", function (current, previous) {
-  if (previous && previous.stopStream) {
-    previous.stopStream()
-  }
-  if (current && current.stream) {
-    current.stream()
-  }
 })
 
 /* Helpers */

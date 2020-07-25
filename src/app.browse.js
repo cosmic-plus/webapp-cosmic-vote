@@ -43,7 +43,10 @@ class BrowseTab extends View {
     this.$import(this.pollsTable, ["networkId", "pollsInbox"])
 
     /* Events */
-    this.pollsTable.$on("clickPoll", ([poll]) => this.selectPoll(poll))
+    this.pollsTable.$on("clickPoll", ([poll]) => {
+      if (!poll.cursor) poll.getVotes()
+      this.selectPoll(poll)
+    })
   }
 
   selectPoll (poll) {

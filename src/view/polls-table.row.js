@@ -4,6 +4,8 @@
  * */
 const { View } = require("@kisbox/browser")
 
+const prettyMs = require("pretty-ms")
+
 /* Definition */
 
 class PollsTableRow extends View {
@@ -12,30 +14,23 @@ class PollsTableRow extends View {
 <tr title="%membersNames">
   <td>%date</td>
   <td>%title</td>
-  <td>
-    <span class="Spinner" hidden=%not:syncing></span>
-    <span hidden=%has:syncing>%votesLength</span>
-  </td>
+  <td>%timeBeforeClose</td>
 </tr>
     `)
 
     this.$import(poll, [
       "title",
-      "votes",
       "record",
       "results",
       "syncing",
-      "members"
+      "members",
+      "maxTime"
     ])
   }
 }
 
 /* Computations */
 const proto = PollsTableRow.prototype
-
-proto.$define("votesLength", ["results"], function () {
-  return this.votes.length
-})
 
 proto.$define("date", ["record"], function () {
   const date = new Date(this.record.created_at)
@@ -46,6 +41,29 @@ proto.$define("date", ["record"], function () {
 proto.$define("membersNames", ["members"], function () {
   return this.members.join("\n")
 })
+
+proto.$define("timeBeforeClose", ["maxTime"], function () {
+  if (!this.maxTime) return "Never"
+
+  const closingTimeDiff = this.maxTime - Date.now()
+  const prettyDiff = prettyInterval(Math.abs(closingTimeDiff))
+
+  if (closingTimeDiff > 0) {
+    return `In ${prettyDiff}`
+  } else {
+    return `Closed`
+  }
+})
+
+/* Helpers */
+function prettyInterval (ms) {
+  const prettyFull = prettyMs(ms, { verbose: true })
+  const prettyShort = prettyFull
+    .split(" ")
+    .slice(0, 2)
+    .join(" ")
+  return prettyShort
+}
 
 /* Export */
 module.exports = PollsTableRow
