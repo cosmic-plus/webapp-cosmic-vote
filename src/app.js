@@ -66,8 +66,9 @@ class CosmicVote extends Application {
     super(app)
 
     /* Defaults */
-    this.txHash =
+    const defaultTxHash =
       "a58e960ee8aab2bf5bdbb4fcb0b9d16d2faf24744c0f8ff92086252d3f6e60db"
+    this.txHash = defaultTxHash
     this.network = "public"
     this.pollsInbox = "list*cosmic.vote"
 
@@ -75,6 +76,14 @@ class CosmicVote extends Application {
     this.$pick(params, ["network", "txHash", "pollsInbox"])
     this.userPubkeys = new Pubkeys()
     this.userPubkeys.$store("userPubkeys")
+
+    /* Update Fix (1.0.0-beta.x) */
+    if (
+      this.txHash === defaultTxHash
+      && (!this.network || this.network.id === "test")
+    ) {
+      this.network = "public"
+    }
 
     /* Poll */
     this.poll = new PollContract(this)
