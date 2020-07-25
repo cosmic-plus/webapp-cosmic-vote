@@ -14,7 +14,7 @@ const OcMessage = require("./oc-message")
 
 /* Data */
 const name = "majority-judgment"
-const version = "1.0"
+const version = "1.1"
 
 /* Definition */
 
