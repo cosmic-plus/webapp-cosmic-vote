@@ -31,7 +31,7 @@ class PollEditor extends View {
     <legend $hint="A short, descriptive title for your poll.">
       Title
     </legend>
-    <input type="text" value=%title maxlength="28"
+    <input type="text" value=%title maxlength="56"
        placeholder="Short Title">
   </fieldset>
 
