@@ -67,7 +67,7 @@ class CosmicVote extends Application {
 
     /* Defaults */
     const defaultTxHash =
-      "a58e960ee8aab2bf5bdbb4fcb0b9d16d2faf24744c0f8ff92086252d3f6e60db"
+      "0582a51ba2d6f0dcdca5cffa4dc262787a834a9524c9b37e028987ab46bad3d7"
     this.txHash = defaultTxHash
     this.network = "public"
     this.pollsInbox = "list*cosmic.vote"
