@@ -15,7 +15,9 @@ class PassiveContract extends OcMessage {
     contract.params = JSON.parse(contract.content)
     contract.type = contract.object.substr(1)
 
-    const stateOp = txParams.operations.find(op => op.type === "createAccount")
+    const stateOp = txParams.operations.find(
+      (op) => op.type === "createAccount"
+    )
     if (stateOp) contract.state = stateOp.destination
 
     return contract

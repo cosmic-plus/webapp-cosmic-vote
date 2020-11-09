@@ -138,7 +138,7 @@ class PollEditor extends View {
 
     /* Imports */
     this.$import(params, ["members", "title", "destination"])
-    this.$import(params, ["network"], x => x.id)
+    this.$import(params, ["network"], (x) => x.id)
   }
 
   switchVotersFiltering () {

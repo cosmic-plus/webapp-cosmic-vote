@@ -42,7 +42,7 @@ class OcMessage extends LiveObject {
       memo: this.object
     })
 
-    xeach(this.destination, address => {
+    xeach(this.destination, (address) => {
       txParams.addOperation("payment", {
         amount: 0.0000001,
         destination: address
@@ -55,7 +55,7 @@ class OcMessage extends LiveObject {
       throw new Error("DMail: content is too long")
     }
 
-    chunkOperations.forEach(op => txParams.operations.push(op))
+    chunkOperations.forEach((op) => txParams.operations.push(op))
     txParams.parse()
 
     return txParams
@@ -103,7 +103,7 @@ OcMessage.listMessages = async function (address, network) {
   mailbox.stream = function () {
     const callBuilder = that.makeMessageCallBuilder(mailbox)
     this.stopStream = callBuilder.stream({
-      onmessage: record => OcMessage.addToMailbox(mailbox, record),
+      onmessage: (record) => OcMessage.addToMailbox(mailbox, record),
       onerror: console.error
     })
   }
@@ -127,7 +127,7 @@ OcMessage.addToMailbox = function (mailbox, paymentRecord) {
 }
 
 OcMessage.isTxParamsValid = function (txParams) {
-  return txParams.operations.some(operation => {
+  return txParams.operations.some((operation) => {
     return operation.type === "manageData" && operation.name === "POST"
   })
 }
@@ -151,7 +151,7 @@ function contentToOperations (content) {
   if (!chunks.length) return []
 
   chunks.push("")
-  return chunks.map(chunk => {
+  return chunks.map((chunk) => {
     return {
       type: "manageData",
       name: "POST",
@@ -163,7 +163,7 @@ function contentToOperations (content) {
 function operationsToDestination (ops) {
   const result = []
 
-  ops.forEach(op => {
+  ops.forEach((op) => {
     if (
       op.type === "payment"
       && op.amount === "0.0000001"
@@ -180,7 +180,7 @@ function operationsToDestination (ops) {
 function operationsToContent (ops) {
   const chunks = []
 
-  ops.forEach(op => {
+  ops.forEach((op) => {
     if (op.type !== "manageData" || op.name !== "POST") return
 
     const data = op.value

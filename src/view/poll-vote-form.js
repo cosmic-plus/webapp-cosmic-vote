@@ -22,7 +22,7 @@ class PollVoteForm extends View {
 
     // Entries events
     this.entries.forEach((li, index) => {
-      this.$listen(li, ["value"], value => {
+      this.$listen(li, ["value"], (value) => {
         this.vote[index] = value
       })
     })
@@ -50,7 +50,7 @@ proto.$on("vote", function (vote) {
 proto.$define("entries", ["members"], function () {
   return this.members.map((id, index) => {
     const entry = new PollVoteForm.Item({ id, value: this.vote[index] })
-    entry.$on("value", value => this.vote[index] = value)
+    entry.$on("value", (value) => this.vote[index] = value)
     return entry
   })
 })

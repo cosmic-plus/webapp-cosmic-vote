@@ -21,7 +21,7 @@ class CrudArray extends LiveArray {
 
   /* Formats */
   toObject () {
-    return this.map(x => x.toObject())
+    return this.map((x) => x.toObject())
   }
 
   toJson () {
@@ -50,11 +50,11 @@ class CrudArray extends LiveArray {
   }
 
   get (id) {
-    return this.find(x => x.id === id)
+    return this.find((x) => x.id === id)
   }
 
   delete (id) {
-    const index = this.findIndex(x => x.id === id)
+    const index = this.findIndex((x) => x.id === id)
     if (index !== -1) this.splice(index, 1)
   }
 }

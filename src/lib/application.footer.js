@@ -23,7 +23,7 @@ class ApplicationFooter extends View {
 
 /* Helpers */
 const helpers = ApplicationFooter.helpers
-helpers.Icon = x => new Icon(x)
+helpers.Icon = (x) => new Icon(x)
 
 /* Export */
 module.exports = ApplicationFooter

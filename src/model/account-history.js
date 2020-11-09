@@ -29,7 +29,7 @@ class AccountHistory extends LiveObject {
     since = to
   }) {
     let returned = true
-    await this.getPastState(since, pastState => {
+    await this.getPastState(since, (pastState) => {
       if (pastState.date > to) return
       const hodled = pastState.balances[assetId]
       if (!hodled || hodled < amount) {
@@ -46,7 +46,7 @@ class AccountHistory extends LiveObject {
     const account = await this.network.server.loadAccount(pubkey)
 
     const pastState = { id: account.id, balances: {} }
-    account.balances.forEach(balance => {
+    account.balances.forEach((balance) => {
       const asset =
         balance.asset_type === "native"
           ? "native"

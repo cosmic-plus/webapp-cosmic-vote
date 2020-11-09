@@ -126,7 +126,7 @@ class VoteTab extends View {
     const txRequest = `${this.txHandler}/${txQuery}`
     const frame = new SideFrame(txRequest)
 
-    const frameClosed = new Promise(resolve => {
+    const frameClosed = new Promise((resolve) => {
       frame.listen("destroy", resolve)
     })
     frameClosed.then(() => this.waitingForVote = true)

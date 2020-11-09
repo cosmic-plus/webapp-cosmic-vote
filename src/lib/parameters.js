@@ -17,7 +17,7 @@ Parameters.fromQuery = function (query, Constructor = Object) {
   }
 
   const defs = query.substr(1).split("&")
-  defs.forEach(assignment => {
+  defs.forEach((assignment) => {
     if (!assignment.length) return
     const key = assignment.split("=")[0]
     const value = assignment.substr(key.length + 1)

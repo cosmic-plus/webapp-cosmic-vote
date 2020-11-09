@@ -79,15 +79,12 @@ proto.$define("timeBeforeClose", ["maxTime"], function () {
 
 /* Helpers */
 const helpers = PollResults.helpers
-helpers.toResultsMember = x => new PollResults.Member(x)
+helpers.toResultsMember = (x) => new PollResults.Member(x)
 
 /* Helpers */
 function prettyInterval (ms) {
   const prettyFull = prettyMs(ms, { verbose: true })
-  const prettyShort = prettyFull
-    .split(" ")
-    .slice(0, 2)
-    .join(" ")
+  const prettyShort = prettyFull.split(" ").slice(0, 2).join(" ")
   return prettyShort
 }
 

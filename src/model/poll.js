@@ -55,7 +55,7 @@ class Poll extends LiveObject {
     call(Array).sort(this.votes, (a, b) => a.date - b.date)
 
     // List members
-    const results = this.members.map(id => {
+    const results = this.members.map((id) => {
       return {
         id,
         counts: new Array(this.grades.length).fill(0)
@@ -63,7 +63,7 @@ class Poll extends LiveObject {
     })
 
     // Count votes
-    this.votes.forEach(vote => {
+    this.votes.forEach((vote) => {
       vote.choice.forEach((grade, index) => {
         const member = results[index]
         member.counts[grade]++
@@ -71,7 +71,7 @@ class Poll extends LiveObject {
     })
 
     // Compute results metrics
-    results.forEach(member => {
+    results.forEach((member) => {
       member.gauge = countsToGauge(member.counts)
       const metrics = gaugeMetrics(member.gauge)
       member.gradeIndex = metrics.median
@@ -94,13 +94,13 @@ const proto = Poll.prototype
 proto.$define("localBallots", ["localVoters", "votes"], function () {
   const localBallots = new CrudArray()
 
-  this.votes.$forEach(ballot => {
+  this.votes.$forEach((ballot) => {
     if (this.localVoters.includes(ballot.id)) {
       localBallots.put(ballot)
     }
   })
-  localBallots.$listen(this.localVoters, "$add", voter => {
-    this.votes.forEach(ballot => {
+  localBallots.$listen(this.localVoters, "$add", (voter) => {
+    this.votes.forEach((ballot) => {
       if (ballot.id === voter) localBallots.put(ballot)
     })
   })
@@ -145,7 +145,7 @@ function metricsRanking (metrics) {
 function countsToGauge (counts) {
   const total = sum(counts)
 
-  return counts.map(count => count / total)
+  return counts.map((count) => count / total)
 }
 
 function gaugeMetrics (gauge) {

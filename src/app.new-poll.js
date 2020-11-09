@@ -80,7 +80,7 @@ class NewPollTab extends View {
       const link = this.poll.toCosmicLink()
 
       const frame = new SideFrame(link)
-      const frameClosed = new Promise(resolve => {
+      const frameClosed = new Promise((resolve) => {
         frame.listen("destroy", resolve)
       })
       frameClosed.then(() => this.syncing = true)

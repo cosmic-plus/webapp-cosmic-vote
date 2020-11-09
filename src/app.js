@@ -88,7 +88,7 @@ class CosmicVote extends Application {
     /* Poll */
     this.poll = new PollContract(this)
     this.poll.syncing = true
-    PollContract.fromTxHash(this.txHash, this.network).then(async poll => {
+    PollContract.fromTxHash(this.txHash, this.network).then(async (poll) => {
       await poll.getVotes()
       this.poll = poll
     })

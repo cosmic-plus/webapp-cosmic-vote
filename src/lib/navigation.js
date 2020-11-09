@@ -24,7 +24,7 @@ class Navigation extends View {
 
     /* Components */
     this.tabs = CrudArray.from(tabs)
-    this.tabs.$forEach(tab => this.listenQuery(tab))
+    this.tabs.$forEach((tab) => this.listenQuery(tab))
 
     /* Events */
     this.$on("selectedTabView", () => this.refreshQuery())
@@ -53,7 +53,7 @@ helpers.toNavigationLink = function (tab) {
   const link = html("a", null, tab.title)
   link.onclick = () => this.selectedTabId = tab.id
 
-  this.$on("selectedTabId", selectedTabId => {
+  this.$on("selectedTabId", (selectedTabId) => {
     link.className = selectedTabId === tab.id ? "selected" : ""
   })
 
@@ -72,7 +72,7 @@ helpers.toNavigationOption = function (tab) {
 const proto = Navigation.prototype
 
 proto.$define("selectedTabView", ["selectedTabId", "tabs"], function () {
-  const tab = this.tabs.find(t => t.id === this.selectedTabId)
+  const tab = this.tabs.find((t) => t.id === this.selectedTabId)
   if (!tab) return
 
   if (typeof tab.view === "function") {

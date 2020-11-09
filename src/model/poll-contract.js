@@ -164,7 +164,7 @@ class PollContract extends Poll {
     this.syncing = true
 
     await loopcall(callBuilder, {
-      filter: paymentRecord => {
+      filter: (paymentRecord) => {
         this.syncingVotes++
         this.ingestPaymentRecord(paymentRecord).finally(
           () => this.syncingVotes--
@@ -247,7 +247,7 @@ class PollContract extends Poll {
     // Carefully ignore wrong inputs.
     const choice = input.params
     if (choice.length !== this.members.length) return
-    if (choice.some(x => x < 0 || x > 5 || !isInteger(x))) return
+    if (choice.some((x) => x < 0 || x > 5 || !isInteger(x))) return
 
     const id = txRecord.source_account
     if (this.noEdit && this.votes.get(id)) {

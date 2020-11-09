@@ -19,7 +19,7 @@ class Pubkeys extends LiveArray {
       collection = JSON.parse(collection)
     }
 
-    xeach(collection, item => this.put(item))
+    xeach(collection, (item) => this.put(item))
   }
 
   put (pubkey) {

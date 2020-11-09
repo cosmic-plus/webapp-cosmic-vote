@@ -7,7 +7,7 @@ const { dispatch } = require("@kisbox/helpers")
 /* Library */
 
 function applyReverseEffect (account, record) {
-  dispatch(applyReverseEffect, record.type, applicator => {
+  dispatch(applyReverseEffect, record.type, (applicator) => {
     applicator(account, record)
   })
 }

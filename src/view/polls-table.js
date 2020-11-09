@@ -57,8 +57,8 @@ proto.$customDefine("syncing", ["polls"], function () {
 
 proto.$define("polls", ["messages"], function () {
   return this.messages.inbox
-    .filter(message => message.object.match(/^~majority-judgment@/))
-    .map(contract => {
+    .filter((message) => message.object.match(/^~majority-judgment@/))
+    .map((contract) => {
       const poll = PollContract.fromPassiveContract(contract)
       return poll
     })

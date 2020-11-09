@@ -98,10 +98,7 @@ function prettyAsset (assetId) {
 
 function prettyInterval (ms) {
   const prettyFull = prettyMs(ms, { verbose: true })
-  const prettyShort = prettyFull
-    .split(" ")
-    .slice(0, 2)
-    .join(" ")
+  const prettyShort = prettyFull.split(" ").slice(0, 2).join(" ")
   return prettyShort
 }
 

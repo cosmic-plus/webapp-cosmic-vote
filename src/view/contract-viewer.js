@@ -11,7 +11,7 @@ class ContractViewer extends View {
   static fromTxHash (hash, context) {
     const viewer = new ContractViewer()
 
-    PassiveContract.fromTxHash(hash, context).then(contract => {
+    PassiveContract.fromTxHash(hash, context).then((contract) => {
       for (let key in contract) viewer[key] = contract[key]
     })
 
